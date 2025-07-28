@@ -1,0 +1,98 @@
+import type { Product } from "@/types";
+import { AxiosError } from "axios";
+import toast from "react-hot-toast";
+import { create } from "zustand";
+import axios from "../lib/axios";
+
+type ProductStore = {
+  products: Product[];
+  loading: boolean;
+  getAllProduct: () => void;
+  createProduct: (formData: FormData) => void;
+  deleteProduct: (id: string) => void;
+  toggleFeatured: (id: string) => void;
+};
+
+export const useProductStore = create<ProductStore>((set) => ({
+  products: [],
+  loading: false,
+
+  getAllProduct: async () => {
+    try {
+      const res = await axios.get("/products");
+      set({ products: res.data });
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        console.log(error);
+        toast.error(
+          error.response?.data?.message || error.message || "An error occurred",
+        );
+      }
+    }
+  },
+
+  createProduct: async (formData) => {
+    set({ loading: true });
+
+    console.log(formData.get("name"));
+    try {
+      const res = await axios.post("/products", formData);
+
+      set((state) => ({ products: [res.data, ...state.products] }));
+      toast.success("Product created");
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        console.log(error);
+        toast.error(
+          error.response?.data?.message || error.message || "An error occurred",
+        );
+      }
+    } finally {
+      set({ loading: false });
+    }
+  },
+
+  deleteProduct: async (id: string) => {
+    try {
+      const res = await axios.delete(`/products/${id}`);
+      set((state) => ({
+        products: state.products.filter((product) => product._id !== id),
+      }));
+      toast.success(res.data.message);
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        console.log(error);
+        toast.error(
+          error.response?.data?.message || error.message || "An error occurred",
+        );
+      }
+    }
+  },
+
+  toggleFeatured: async (id: string) => {
+    try {
+      const res = await axios.patch(`/products/featured/${id}`);
+      set((state) => ({
+        products: state.products.map((product) =>
+          product._id != id
+            ? product
+            : { ...product, isFeatured: !product.isFeatured },
+        ),
+      }));
+      console.log(res.data.Featured);
+      toast.success(
+        res.data.Featured
+          ? "The product is featured"
+          : "The product is removed from featured",
+        { id: "Featured" },
+      );
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        console.log(error);
+        toast.error(
+          error.response?.data?.message || error.message || "An error occurred",
+        );
+      }
+    }
+  },
+}));

@@ -7,6 +7,7 @@ const productSchema = new mongoose.Schema(
     imageUrl: { type: String },
     isFeatured: { type: Boolean, default: false },
     price: { type: Number, required: true, min: 0 },
+    category: { type: String, enum: ["Headbands", "Earbuds", "Accessories"] },
   },
   { timestamps: true }
 );
