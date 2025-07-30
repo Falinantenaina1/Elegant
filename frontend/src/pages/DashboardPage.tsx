@@ -22,22 +22,26 @@ const DashboardPage = () => {
   return (
     <Section className="relative space-y-2 py-4 md:py-8 lg:px-10 xl:px-24 2xl:px-40">
       <h2 className="text-center text-2xl font-bold">Dashboard</h2>
-      <div className="flex items-center justify-center gap-x-2">
-        <span
-          className={`cursor-pointer rounded-2xl border px-6 py-1 ${tabs === "create" ? "bg-yellow/64 border-yellow/64" : "border-black-07/50"}`}
-          onClick={() => setTabs("create")}
-        >
-          Create
-        </span>
-        <span
-          className={`cursor-pointer rounded-2xl border px-6 py-1 ${tabs === "products" ? "bg-yellow/64 border-yellow/64" : "border-black-07/50"}`}
-          onClick={() => setTabs("products")}
-        >
-          Products
-        </span>
+      <div className="grid grid-cols-12 gap-x-8">
+        <div className="col-span-2 flex flex-col gap-y-2">
+          <span
+            className={`cursor-pointer rounded-2xl px-6 py-1 ${tabs === "create" ? "bg-yellow/64 border-yellow/64" : "border-black-07/50"}`}
+            onClick={() => setTabs("create")}
+          >
+            Create
+          </span>
+          <span
+            className={`cursor-pointer rounded-2xl px-6 py-1 ${tabs === "products" ? "bg-yellow/64 border-yellow/64" : "border-black-07/50"}`}
+            onClick={() => setTabs("products")}
+          >
+            Products
+          </span>
+        </div>
+        <div className="col-span-9">
+          {tabs === "create" && <CreateProduct />}
+          {tabs === "products" && <ProductsDashboard products={products} />}
+        </div>
       </div>
-      {tabs === "create" && <CreateProduct />}
-      {tabs === "products" && <ProductsDashboard products={products} />}
     </Section>
   );
 };

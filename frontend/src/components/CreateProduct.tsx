@@ -37,8 +37,8 @@ export const CreateProduct = () => {
   };
 
   return (
-    <Section className="px-6 py-6 lg:px-10 xl:px-24 2xl:px-40">
-      <form onSubmit={handleSubmit} className="mx-auto max-w-7xl space-y-2">
+    <Section>
+      <form onSubmit={handleSubmit} className="max-w-7xl space-y-2">
         <div className="space-y-1">
           <Label htmlFor="name">Product name</Label>
           <Input

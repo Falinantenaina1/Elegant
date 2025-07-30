@@ -28,7 +28,7 @@ export const MobileNavbar = () => {
   const { user, logout } = useUserStore();
 
   return (
-    <div className="flex items-center justify-between px-4 py-4 md:hidden">
+    <div className="flex items-center justify-between px-6 py-4 md:px-10 lg:hidden">
       <Sheet>
         <SheetTrigger className="flex gap-x-2">
           <MenuIcon className="size-5" />
@@ -125,7 +125,10 @@ export const MobileNavbar = () => {
           </div>
         </SheetContent>
       </Sheet>
-      <Cart />
+      <div className="flex items-center gap-x-2">
+        {user && <Link to={"/"}>{user.lastname}</Link>}
+        <Cart />
+      </div>
     </div>
   );
 };

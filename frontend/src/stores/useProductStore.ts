@@ -70,6 +70,7 @@ export const useProductStore = create<ProductStore>((set) => ({
   },
 
   toggleFeatured: async (id: string) => {
+    set({ loading: true });
     try {
       const res = await axios.patch(`/products/featured/${id}`);
       set((state) => ({
@@ -93,6 +94,8 @@ export const useProductStore = create<ProductStore>((set) => ({
           error.response?.data?.message || error.message || "An error occurred",
         );
       }
+    } finally {
+      set({ loading: false });
     }
   },
 }));

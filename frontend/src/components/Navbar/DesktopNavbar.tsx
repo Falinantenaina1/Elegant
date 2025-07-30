@@ -10,7 +10,7 @@ export const DesktopNavbar = () => {
   const { user, logout } = useUserStore();
 
   return (
-    <div className="flex items-center justify-between px-6 py-4.5 max-md:hidden lg:px-10 xl:px-24 2xl:px-40">
+    <div className="flex items-center justify-between py-4.5 max-lg:hidden lg:px-10 xl:px-24 2xl:px-40">
       <Link to="/" className="grow basis-0">
         <img src="/logo.png" alt="logo" />
       </Link>
