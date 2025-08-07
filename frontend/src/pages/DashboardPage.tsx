@@ -10,13 +10,12 @@ const DashboardPage = () => {
   const user = useUserStore((s) => s.user);
   const navigate = useNavigate();
   const [tabs, setTabs] = useState("create");
-  const { products, getAllProduct } = useProductStore();
+  const { products } = useProductStore();
 
   useEffect(() => {
     if (!user) {
       navigate("/");
     }
-    getAllProduct();
   }, [user]);
 
   return (

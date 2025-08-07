@@ -1,5 +1,6 @@
 import { Footer } from "@/components/Footer";
 import { Navbar } from "@/components/Navbar/Navbar";
+import { useProductStore } from "@/stores/useProductStore";
 
 import { useUserStore } from "@/stores/useUserStore";
 import { LoaderCircleIcon } from "lucide-react";
@@ -8,10 +9,15 @@ import { Outlet } from "react-router-dom";
 
 const LayoutPage = () => {
   const { isCheckingAuth, checkAuth } = useUserStore();
+  const getAllProduct = useProductStore((s) => s.getAllProduct);
 
   useEffect(() => {
     checkAuth();
   }, [checkAuth]);
+
+  useEffect(() => {
+    getAllProduct();
+  });
 
   return (
     <div className="mx-auto flex min-h-screen max-w-[120rem] flex-col">

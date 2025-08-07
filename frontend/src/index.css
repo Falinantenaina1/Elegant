@@ -16,6 +16,7 @@
   --color-foreground: var(--foreground);
   --color-yellow: #ffab00;
   --color-black-07: #141718;
+  --color-grey: #f3f5f7;
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
   --color-popover: var(--popover);
@@ -126,5 +127,9 @@
 
   h1 {
     @apply font-poppins text-[2.5rem]/10 font-medium lg:text-[3.5rem]/15 xl:text-[5rem]/20;
+  }
+
+  h2 {
+    @apply font-poppins text-[2.125rem]/8.5 font-medium;
   }
 }
