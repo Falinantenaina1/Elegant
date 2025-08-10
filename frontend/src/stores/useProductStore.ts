@@ -80,7 +80,6 @@ export const useProductStore = create<ProductStore>((set) => ({
             : { ...product, isFeatured: !product.isFeatured },
         ),
       }));
-      console.log(res.data.Featured);
       toast.success(
         res.data.Featured
           ? "The product is featured"

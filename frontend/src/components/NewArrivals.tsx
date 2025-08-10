@@ -9,7 +9,7 @@ export const NewArrivals = () => {
 
   return (
     <Section className="px-6 py-6 md:px-10 lg:px-10 xl:px-24 2xl:px-40">
-      <h2 className="mb-8">New Arrivals</h2>
+      <h2>New Arrivals</h2>
       <ProductCarousel products={newArrivals} />
     </Section>
   );

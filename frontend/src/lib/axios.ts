@@ -1,13 +1,11 @@
 import axios from "axios";
 
+console.log(import.meta.mode);
+
 const instance = axios.create({
-  baseURL: "http://localhost:5500/api",
+  baseURL:
+    import.meta.mode === "development" ? "/api" : "http://localhost:5500/api",
   withCredentials: true,
-  proxy: {
-    protocol: "http",
-    host: "localhost",
-    port: 5500,
-  },
 });
 
 export default instance;

@@ -14,7 +14,7 @@ export const ProductCard = ({
       <Card
         className={`w-full max-w-[349px] ${className || ""} transition-all duration-200 hover:-translate-y-1`}
       >
-        <div className="flex h-[262px] w-full flex-col items-center justify-center space-y-4 overflow-hidden">
+        <div className="flex h-[262px] w-full flex-col items-center justify-center overflow-hidden">
           <img
             src={product.imageUrl}
             alt={`${product.name} picture`}
@@ -27,5 +27,14 @@ export const ProductCard = ({
         </CardContent>
       </Card>
     </Link>
+  );
+};
+
+export const ProductCardSkeleton = () => {
+  return (
+    <div className="h-full w-full max-w-[349px] space-y-4 overflow-hidden rounded-md px-6 py-4 shadow-md">
+      <div className="h-[280px] animate-pulse rounded-2xl bg-gray-900/20"></div>
+      <div className="h-10 animate-pulse rounded-2xl bg-gray-900/20"></div>
+    </div>
   );
 };

@@ -130,6 +130,6 @@
   }
 
   h2 {
-    @apply font-poppins text-[2.125rem]/8.5 font-medium;
+    @apply font-poppins mb-6 text-[2.125rem]/8.5 font-medium;
   }
 }
