@@ -10,6 +10,7 @@ import { Outlet } from "react-router-dom";
 const LayoutPage = () => {
   const { isCheckingAuth, checkAuth } = useUserStore();
   const getAllProduct = useProductStore((s) => s.getAllProduct);
+  const isGettingProduct = useProductStore((s) => s.isGettingProduct);
 
   useEffect(() => {
     checkAuth();
@@ -21,7 +22,7 @@ const LayoutPage = () => {
 
   return (
     <div className="mx-auto flex min-h-screen max-w-[120rem] flex-col">
-      {isCheckingAuth ? (
+      {isCheckingAuth || isGettingProduct ? (
         <div className="flex h-screen w-screen items-center justify-center">
           <LoaderCircleIcon className="size-25 animate-spin" />
         </div>

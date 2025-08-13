@@ -7,6 +7,7 @@ import axios from "../lib/axios";
 type ProductStore = {
   products: Product[];
   loading: boolean;
+  isGettingProduct: boolean;
   getAllProduct: () => void;
   createProduct: (formData: FormData) => void;
   deleteProduct: (id: string) => void;
@@ -16,16 +17,17 @@ type ProductStore = {
 export const useProductStore = create<ProductStore>((set) => ({
   products: [],
   loading: false,
-
+  isGettingProduct: true,
   getAllProduct: async () => {
     try {
       const res = await axios.get("/products");
-      set({ products: res.data });
+      set({ products: res.data, isGettingProduct: false });
     } catch (error) {
       if (error instanceof AxiosError) {
         console.log(error);
         toast.error(
           error.response?.data?.message || error.message || "An error occurred",
+          { id: "getProduct" },
         );
       }
     }
