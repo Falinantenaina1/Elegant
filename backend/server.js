@@ -17,14 +17,16 @@ const app = express();
 const __dirname = path.resolve();
 app.use(express.static("images"));
 
-if (process.env.NOVE_ENV === "development") {
-  app.use(
-    cors({
-      origin: ["http://localhost:5173", "http://localhost:4173"],
-      credentials: true,
-    })
-  );
-}
+app.use(
+  cors({
+    origin: [
+      "http://localhost:5173",
+      "http://localhost:4173",
+      "http://localhost:5500",
+    ],
+    credentials: true,
+  })
+);
 
 app.use(cookieParser());
 
