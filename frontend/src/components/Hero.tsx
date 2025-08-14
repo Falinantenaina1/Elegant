@@ -6,7 +6,7 @@ import { buttonVariants } from "./ui/button";
 export const Hero = () => {
   return (
     <Section>
-      <div className="relative max-h-[43.25rem] w-full md:max-h-[51.25rem]">
+      <div className="bg-yellow/64 relative max-h-[43.25rem] min-h-[28.5rem] w-full md:max-h-[51.25rem]">
         <img
           src="/hero_lg.webp"
           alt="hero"

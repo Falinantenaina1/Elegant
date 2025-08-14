@@ -1,3 +1,5 @@
+import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
 
 const NotFound = () => {
@@ -13,10 +15,7 @@ const NotFound = () => {
         changed, or is temporarily unavailable.
       </p>
       <div className="mt-6 flex items-center gap-4">
-        <Link
-          to={"/"}
-          className="rounded-md bg-gray-800 px-7 py-2.5 text-white transition-all hover:bg-black active:scale-95"
-        >
+        <Link to={"/"} className={cn(buttonVariants())}>
           Return Home
         </Link>
       </div>
