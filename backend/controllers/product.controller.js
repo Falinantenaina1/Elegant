@@ -9,9 +9,7 @@ export const createProduct = async (req, res) => {
       return res.status(404).json({ message: "All field is required" });
     }
 
-    const imageUrl = `${req.protocol}://${req.get("host")}/${
-      req.file.filename
-    }`;
+    const imageUrl = `/${req.file.filename}`;
 
     const product = await Product.create({
       name,

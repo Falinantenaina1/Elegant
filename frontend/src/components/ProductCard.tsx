@@ -16,7 +16,7 @@ export const ProductCard = ({
       >
         <div className="flex h-[262px] w-full flex-col items-center justify-center overflow-hidden">
           <img
-            src={product.imageUrl}
+            src={`${import.meta.env.VITE_API_URL}${product.imageUrl}`}
             alt={`${product.name} picture`}
             className="mx-auto block max-h-60"
           />
