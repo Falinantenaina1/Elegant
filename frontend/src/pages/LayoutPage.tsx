@@ -1,14 +1,16 @@
 import { Footer } from "@/components/Footer";
-import { Navbar } from "@/components/Navbar/Navbar";
 import { useProductStore } from "@/stores/useProductStore";
 
+import { Navbar } from "@/components/Navbar";
 import { useUserStore } from "@/stores/useUserStore";
 import { LoaderCircleIcon } from "lucide-react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
+import { Auth } from "./Auth";
 
 const LayoutPage = () => {
   const { isCheckingAuth, checkAuth } = useUserStore();
+  const [showAuth, setShowAuth] = useState(false);
   const getAllProduct = useProductStore((s) => s.getAllProduct);
   const isGettingProduct = useProductStore((s) => s.isGettingProduct);
 
@@ -28,7 +30,8 @@ const LayoutPage = () => {
         </div>
       ) : (
         <div className="flex min-h-screen flex-col justify-between">
-          <Navbar />
+          {showAuth && <Auth setShowAuth={setShowAuth} />}
+          <Navbar setShowAuth={setShowAuth} />
           <main className="font-inter w-full flex-1">
             <Outlet />
           </main>
