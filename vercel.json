@@ -1,16 +1,1 @@
-{
-  "version": 2,
-  "builds": [
-    {
-      "src": "backend/server.js",
-      "use": "@vercel/node"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "backend/server.js"
-    }
-  ],
-  "buildCommand": "npm install  && npm install --prefix frontend && npm run build --prefix frontend"
-}
+{ "version": 2, "rewrites": [{ "source": "/(.*)", "destination": "/backend" }] }
