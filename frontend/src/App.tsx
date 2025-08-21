@@ -4,6 +4,7 @@ import DashboardPage from "./pages/DashboardPage";
 import HomePage from "./pages/HomePage";
 import LayoutPage from "./pages/LayoutPage";
 import NotFound from "./pages/NotFound";
+import { ProductDetails } from "./pages/ProductDetails";
 import ProductsPage from "./pages/ProductsPage";
 import ShopPage from "./pages/ShopPage";
 
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
       {
         path: "products",
         element: <ProductsPage />,
+      },
+      {
+        path: "products/:id",
+        element: <ProductDetails />,
       },
       {
         path: "contact",

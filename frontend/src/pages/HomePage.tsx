@@ -10,7 +10,6 @@ const HomePage = () => {
       <NewArrivals />
       <Collection />
       <BestSeller />
-      sdf
     </>
   );
 };

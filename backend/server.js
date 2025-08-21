@@ -44,7 +44,14 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
-app.listen(PORT, () => {
-  connectDb();
-  console.log(`The server is running on http://localhost:${PORT}`);
-});
+(async () => {
+  try {
+    await connectDb(); //
+    app.listen(PORT, () => {
+      console.log(`Server running on http://localhost:${PORT}`);
+    });
+  } catch (error) {
+    console.error("Failed to connect to DB:", error);
+    process.exit(1);
+  }
+})();

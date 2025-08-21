@@ -35,6 +35,7 @@ export const Navbar = ({
   const { user, logout } = useUserStore();
   return (
     <nav className="bg-yellow/64 w-full">
+      {/* Desktop Navbar */}
       <div className="flex items-center justify-between py-4.5 max-lg:hidden lg:px-10 xl:px-24 2xl:px-40">
         <Link to="/" className="grow basis-0">
           <img src="/logo.png" alt="logo" />
@@ -80,6 +81,7 @@ export const Navbar = ({
           )}
         </div>
       </div>
+      {/* Mobile Navbar */}
       <div className="flex items-center justify-between px-6 py-4 md:px-10 lg:hidden">
         <Sheet>
           <SheetTrigger className="flex gap-x-2">

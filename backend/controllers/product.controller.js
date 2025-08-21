@@ -22,7 +22,7 @@ export const createProduct = async (req, res) => {
     return res.status(201).json(product);
   } catch (error) {
     console.log("Error in createProduct controller", error.message);
-    res.status(500).json({ message: error.message || "Server error" });
+    res.status(500).json({ message: error || "Server error" });
   }
 };
 
