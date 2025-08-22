@@ -18,7 +18,13 @@ router.get("/", getAllProducts);
 router.get("/featured", getFeaturedProduct);
 router.get("/:id", getProduct);
 router.get("/latest", getLatestProduct);
-router.post("/", upload.single("image"), createProduct);
+router.post(
+  "/",
+  protectRoute,
+  adminRoute,
+  upload.single("image"),
+  createProduct
+);
 router.patch("/featured/:id", toogleFeatured);
 router.put("/:id", protectRoute, adminRoute, updateProduct);
 router.delete("/:id", protectRoute, adminRoute, deleteProduct);

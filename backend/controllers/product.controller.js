@@ -4,6 +4,7 @@ import Product from "../models/product.model.js";
 export const createProduct = async (req, res) => {
   try {
     const { name, description, price, category } = req.body;
+    console.log(req.body);
 
     if (!name || !description || !price || !category) {
       return res.status(404).json({ message: "All field is required" });
@@ -22,7 +23,7 @@ export const createProduct = async (req, res) => {
     return res.status(201).json(product);
   } catch (error) {
     console.log("Error in createProduct controller", error.message);
-    res.status(500).json({ message: error || "Server error" });
+    res.status(500).json({ message: error || error.message || "Server error" });
   }
 };
 

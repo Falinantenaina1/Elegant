@@ -6,6 +6,18 @@ const MIME_TYPES = {
   "image/png": "png",
 };
 
+const fileFilter = (req, file, callback) => {
+  if (MIME_TYPES[file.mimetype]) {
+    callback(null, true);
+  } else {
+    callback(new Error("Type de fichier non supporté"), false);
+  }
+};
+
+const limits = {
+  fileSize: 5 * 1024 * 1024, // 5MB
+};
+
 const storage = multer.diskStorage({
   destination: (req, file, callback) => {
     callback(null, "images");
@@ -17,4 +29,8 @@ const storage = multer.diskStorage({
   },
 });
 
-export const upload = multer({ storage: storage });
+export const upload = multer({
+  storage: storage,
+  fileFilter: fileFilter,
+  limits: limits,
+});
