@@ -10,7 +10,7 @@ const fileFilter = (req, file, callback) => {
   if (MIME_TYPES[file.mimetype]) {
     callback(null, true);
   } else {
-    callback(new Error("Type de fichier non supporté"), false);
+    callback(new Error("File type not allowed"), false);
   }
 };
 

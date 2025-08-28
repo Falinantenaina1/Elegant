@@ -1,10 +1,15 @@
+import fs from "fs/promises";
 import mongoose from "mongoose";
+import path from "path";
 import Product from "../models/product.model.js";
 
 export const createProduct = async (req, res) => {
   try {
+    if (!req.file) {
+      return res.status(400).json({ message: "No file uploaded" });
+    }
+
     const { name, description, price, category } = req.body;
-    console.log(req.body);
 
     if (!name || !description || !price || !category) {
       return res.status(404).json({ message: "All field is required" });
@@ -131,11 +136,28 @@ export const deleteProduct = async (req, res) => {
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).json({ message: "The IS is not valid" });
   }
-  const deletedProduct = await Product.findByIdAndDelete(id);
+  const product = await Product.findById(id);
 
-  if (!deletedProduct) {
+  if (!product) {
     return res.status(404).json({ message: "Product not found" });
   }
+
+  //delete image from path
+
+  if (product.imageUrl) {
+    const filename = product.imageUrl.substring(1);
+    const imagePath = path.join("images", filename);
+
+    try {
+      await fs.access(imagePath);
+      await fs.unlink(imagePath);
+    } catch (fsError) {
+      console.log("Image file not found or already deleted", fsError.message);
+    }
+  }
+
+  // Delete the product from database
+  await Product.findByIdAndDelete(id);
 
   res.status(200).json({ message: "Product deleted" });
 
