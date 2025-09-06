@@ -29,12 +29,9 @@ export const createProduct = async (req, res) => {
     });
 
     const product = await Product.create({
-      name,
-      description,
-      price,
+      ...req.body,
       imageUrl: result.secure_url,
       publicId: result.public_id,
-      category,
     });
 
     return res.status(201).json(product);
