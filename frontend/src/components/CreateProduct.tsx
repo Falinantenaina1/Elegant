@@ -38,40 +38,38 @@ export const CreateProduct = () => {
 
   return (
     <Section>
-      <form onSubmit={handleSubmit} className="max-w-7xl space-y-2">
+      <form onSubmit={handleSubmit} className="max-w-lg space-y-3">
         <div className="space-y-1">
-          <Label htmlFor="name">Product name</Label>
+          <Label htmlFor="image">Product Image</Label>
+          <Input
+            type="file"
+            name="image"
+            id="image"
+            accept="image/*"
+            required
+          />
+        </div>
+        <div className="space-y-1">
+          <Label htmlFor="name">Product Name</Label>
           <Input
             type="text"
             name="name"
             id="name"
-            placeholder="Name"
+            placeholder="Type here"
             required
           />
         </div>
 
         <div className="space-y-1">
-          <Label htmlFor="description">Description</Label>
+          <Label htmlFor="description">Product Desciption</Label>
           <Textarea
-            placeholder="Description"
+            placeholder="Type here"
             required
             name="description"
             id="description"
           />
         </div>
 
-        <div className="space-y-1">
-          <Label htmlFor="price">Price</Label>
-          <Input
-            type="number"
-            name="price"
-            id="price"
-            placeholder="Price"
-            min={0}
-            step={0.01}
-            required
-          />
-        </div>
         <div className="flex items-center gap-x-1">
           <Label htmlFor="category">Category : </Label>
           <select
@@ -89,25 +87,29 @@ export const CreateProduct = () => {
             ))}
           </select>
         </div>
+
         <div className="space-y-1">
-          <Label htmlFor="image">Picture</Label>
+          <Label htmlFor="price">Product Price</Label>
           <Input
-            type="file"
-            name="image"
-            id="image"
-            accept="image/*"
+            className="w-max"
+            type="number"
+            name="price"
+            id="price"
+            placeholder="0"
+            min={0}
+            step={0.01}
             required
           />
         </div>
 
-        <Button type="submit" size={"lg"} className="w-full" disabled={loading}>
+        <Button type="submit" size={"lg"} disabled={loading}>
           {loading ? (
             <div className="flex animate-pulse items-center gap-x-1">
               <LoaderCircle className="animate-spin" />
               <span>Loading...</span>
             </div>
           ) : (
-            "Create"
+            "ADD"
           )}
         </Button>
       </form>
