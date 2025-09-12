@@ -34,7 +34,7 @@ export const Collection = () => {
   return (
     <Section className="px-6 py-6 md:px-10 lg:px-10 xl:px-24 2xl:px-40">
       <h2>Shop Collection</h2>
-      <div className="mx-auto grid max-w-7xl grid-cols-1 gap-x-6 gap-y-4 py-6 sm:grid-cols-2 sm:gap-y-6">
+      <div className="mx-auto grid max-w-[90rem] grid-cols-1 gap-x-6 gap-y-4 py-6 sm:grid-cols-2 sm:gap-y-6">
         <CollectionCard
           title="Headband"
           image_path="/headbands.webp"

@@ -82,7 +82,7 @@ export const Navbar = ({
         </div>
       </div>
       {/* Mobile Navbar */}
-      <div className="flex items-center justify-between px-6 py-4 md:px-10 lg:hidden">
+      <div className="flex items-center justify-between scroll-auto px-6 py-4 md:px-10 lg:hidden">
         <Sheet>
           <SheetTrigger className="flex gap-x-2">
             <MenuIcon className="size-5" />

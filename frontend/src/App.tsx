@@ -1,12 +1,15 @@
+import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import ContactPage from "./pages/ContactPage";
 import DashboardPage from "./pages/DashboardPage";
+
 import HomePage from "./pages/HomePage";
 import LayoutPage from "./pages/LayoutPage";
-import NotFound from "./pages/NotFound";
-import { ProductDetails } from "./pages/ProductDetails";
-import ProductsPage from "./pages/ProductsPage";
-import ShopPage from "./pages/ShopPage";
+
+const ProductDetails = React.lazy(() => import("./pages/ProductDetails"));
+const ProductsPage = React.lazy(() => import("./pages/ProductsPage"));
+const ContactPage = React.lazy(() => import("./pages/ContactPage"));
+const ShopPage = React.lazy(() => import("./pages/ShopPage"));
+const NotFound = React.lazy(() => import("./pages/NotFound"));
 
 const router = createBrowserRouter([
   {

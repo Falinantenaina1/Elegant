@@ -36,7 +36,6 @@ export const useProductStore = create<ProductStore>((set) => ({
   createProduct: async (formData) => {
     set({ loading: true });
 
-    console.log(formData.get("name"));
     try {
       const res = await axios.post("/products", formData);
 

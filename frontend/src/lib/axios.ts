@@ -1,7 +1,5 @@
 import axios from "axios";
 
-console.log("mode", import.meta.env.MODE);
-
 const instance = axios.create({
   baseURL:
     import.meta.env.MODE === "production"

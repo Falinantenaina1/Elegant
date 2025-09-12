@@ -15,7 +15,7 @@ export const ProductCarousel = ({ products }: { products: Product[] }) => {
         {products.map((product) => (
           <CarouselItem
             key={product._id}
-            className="basis-4/5 min-[600px]:basis-1/2 md:basis-2/5 lg:basis-1/3 xl:basis-1/4"
+            className="3xl:basis-2/9 basis-4/5 min-[600px]:basis-1/2 md:basis-2/5 lg:basis-1/3 xl:basis-1/4"
           >
             <ProductCard product={product} />
           </CarouselItem>

@@ -37,9 +37,9 @@ export const Auth = ({
   return (
     <div
       onClick={() => setShowAuth(false)}
-      className="fixed inset-0 z-100 h-screen w-full bg-white/70"
+      className="fixed inset-0 z-100 flex h-screen w-full items-center justify-center bg-white/70"
     >
-      <div className="flex h-screen items-center justify-center">
+      <div className="flex h-screen max-w-6xl items-center justify-center">
         <div
           className="grid h-max grid-cols-1 bg-white shadow-2xl md:grid-cols-2 md:items-center"
           onClick={(e) => e.stopPropagation()}

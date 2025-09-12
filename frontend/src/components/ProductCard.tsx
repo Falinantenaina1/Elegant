@@ -1,5 +1,5 @@
 import type { Product } from "@/types";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Card, CardContent } from "./ui/card";
 
 export const ProductCard = ({
@@ -9,24 +9,29 @@ export const ProductCard = ({
   product: Product;
   className?: string;
 }) => {
+  const navigate = useNavigate();
   return (
-    <Link to={`/products/${product._id}`}>
+    <div
+      onClick={() => (navigate(`/products/${product._id}`), scroll(0, 0))}
+      className="cursor-pointer"
+    >
       <Card
-        className={`w-full max-w-[349px] ${className || ""} transition-all duration-200 hover:-translate-y-1`}
+        className={`w-full ${className || ""} transition-all duration-200 hover:-translate-y-1`}
       >
-        <div className="flex h-[262px] w-full flex-col items-center justify-center overflow-hidden">
-          <img
-            src={product.imageUrl}
-            alt={`${product.name} picture`}
-            className="mx-auto block max-h-60"
-          />
-        </div>
         <CardContent className="text-center font-medium">
+          <div className="flex h-[262px] flex-col items-center justify-center overflow-hidden">
+            <img
+              src={product.imageUrl}
+              alt={`${product.name} picture`}
+              className="mx-auto block max-h-60 object-contain"
+              loading="lazy"
+            />
+          </div>
           <h3>{product.name}</h3>
-          <p>${product.price}</p>
+          <p className="font-semibold">${product.price}</p>
         </CardContent>
       </Card>
-    </Link>
+    </div>
   );
 };
 

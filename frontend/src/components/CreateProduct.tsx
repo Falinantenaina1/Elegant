@@ -70,6 +70,17 @@ export const CreateProduct = () => {
           />
         </div>
 
+        <div className="space-y-1">
+          <Label htmlFor="color">Product Color</Label>
+          <Input
+            type="text"
+            name="color"
+            id="color"
+            placeholder="Type here"
+            required
+          />
+        </div>
+
         <div className="flex items-center gap-x-1">
           <Label htmlFor="category">Category : </Label>
           <select

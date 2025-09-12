@@ -12,6 +12,8 @@ const DashboardPage = () => {
   const [tabs, setTabs] = useState("create");
   const { products } = useProductStore();
 
+  console.log(products);
+
   useEffect(() => {
     if (!user) {
       navigate("/");
