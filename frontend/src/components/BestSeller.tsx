@@ -8,7 +8,7 @@ export const BestSeller = () => {
   const bestSeller = products.filter((product) => product.isFeatured);
 
   return (
-    <Section className="px-6 py-6 md:px-10 lg:px-10 xl:px-24">
+    <Section className="section">
       <h2>Best Seller</h2>
       <div className="3xl:gap-x-8 mx-auto flex w-full max-w-[100rem] flex-wrap justify-center gap-x-4 gap-y-4 xl:gap-x-6 2xl:gap-x-2">
         {bestSeller.slice(0, 8).map((product) => (

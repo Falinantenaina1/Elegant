@@ -2,8 +2,7 @@ import { Section } from "@/components/Section";
 import { useProductStore } from "@/stores/useProductStore";
 import type { Product } from "@/types";
 import { Edit3, Star, Trash2 } from "lucide-react";
-
-export const ProductsDashboard = ({ products }: { products: Product[] }) => {
+const ProductsDashboard = ({ products }: { products: Product[] }) => {
   const { deleteProduct, toggleFeatured, loading } = useProductStore();
 
   const handleDelete = (id: string) => {
@@ -80,3 +79,5 @@ export const ProductsDashboard = ({ products }: { products: Product[] }) => {
     </Section>
   );
 };
+
+export default ProductsDashboard;

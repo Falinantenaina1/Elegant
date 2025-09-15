@@ -24,7 +24,7 @@ const categories = [
   },
 ];
 
-export const CreateProduct = () => {
+const CreateProduct = () => {
   const { createProduct, loading } = useProductStore();
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -127,3 +127,5 @@ export const CreateProduct = () => {
     </Section>
   );
 };
+
+export default CreateProduct;

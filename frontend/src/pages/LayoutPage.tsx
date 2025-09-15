@@ -1,9 +1,9 @@
 import { Footer } from "@/components/Footer";
 import { useProductStore } from "@/stores/useProductStore";
 
+import Loading from "@/components/Loading";
 import { Navbar } from "@/components/Navbar";
 import { useUserStore } from "@/stores/useUserStore";
-import { LoaderCircleIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 import { Auth } from "./Auth";
@@ -24,20 +24,14 @@ const LayoutPage = () => {
 
   return (
     <div className="mx-auto flex min-h-screen max-w-[120rem] flex-col">
-      {isCheckingAuth || isGettingProduct ? (
-        <div className="flex h-screen w-screen items-center justify-center">
-          <LoaderCircleIcon className="size-25 animate-spin" />
-        </div>
-      ) : (
-        <div className="flex min-h-screen flex-col justify-between">
-          {showAuth && <Auth setShowAuth={setShowAuth} />}
-          <Navbar setShowAuth={setShowAuth} />
-          <main className="font-inter w-full flex-1">
-            <Outlet />
-          </main>
-          <Footer />
-        </div>
-      )}
+      <div className="flex min-h-screen flex-col justify-between">
+        {showAuth && <Auth setShowAuth={setShowAuth} />}
+        <Navbar setShowAuth={setShowAuth} />
+        <main className="font-inter w-full flex-1">
+          {isCheckingAuth || isGettingProduct ? <Loading /> : <Outlet />}
+        </main>
+        <Footer />
+      </div>
     </div>
   );
 };

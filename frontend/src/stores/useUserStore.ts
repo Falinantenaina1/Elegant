@@ -26,7 +26,6 @@ export const useUserStore = create<UserStore>((set) => ({
   isCheckingAuth: true,
 
   signup: async (signupData) => {
-    console.log(signupData);
     set({ loading: true });
     try {
       if (signupData.password !== signupData.passwordVerification) {

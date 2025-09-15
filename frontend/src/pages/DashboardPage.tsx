@@ -1,10 +1,13 @@
-import { CreateProduct } from "@/components/CreateProduct";
 import { Section } from "@/components/Section";
 import { useProductStore } from "@/stores/useProductStore";
 import { useUserStore } from "@/stores/useUserStore";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { ProductsDashboard } from "./ProductsDashboard";
+
+const ProductsDashboard = React.lazy(
+  () => import("../components/ProductsDashboard"),
+);
+const CreateProduct = React.lazy(() => import("../components/CreateProduct"));
 
 const DashboardPage = () => {
   const user = useUserStore((s) => s.user);

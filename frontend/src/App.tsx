@@ -1,7 +1,8 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import DashboardPage from "./pages/DashboardPage";
 
+import Loading from "./components/Loading";
 import HomePage from "./pages/HomePage";
 import LayoutPage from "./pages/LayoutPage";
 
@@ -23,23 +24,43 @@ const router = createBrowserRouter([
       },
       {
         path: "shop",
-        element: <ShopPage />,
+        element: (
+          <Suspense fallback={<Loading />}>
+            <ShopPage />
+          </Suspense>
+        ),
       },
       {
         path: "products",
-        element: <ProductsPage />,
+        element: (
+          <Suspense fallback={<Loading />}>
+            <ProductsPage />
+          </Suspense>
+        ),
       },
       {
         path: "products/:id",
-        element: <ProductDetails />,
+        element: (
+          <Suspense fallback={<Loading />}>
+            <ProductDetails />
+          </Suspense>
+        ),
       },
       {
         path: "contact",
-        element: <ContactPage />,
+        element: (
+          <Suspense fallback={<Loading />}>
+            <ContactPage />
+          </Suspense>
+        ),
       },
       {
         path: "dashboard",
-        element: <DashboardPage />,
+        element: (
+          <Suspense fallback={<Loading />}>
+            <DashboardPage />
+          </Suspense>
+        ),
       },
     ],
   },
