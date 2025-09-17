@@ -8,8 +8,8 @@ export const NewArrivals = () => {
   const newArrivals = products.slice(0, 10);
 
   return (
-    <Section className="section mx-auto w-full max-w-[100rem]">
-      <h2>New Arrivals</h2>
+    <Section className="section mx-auto max-w-[90rem]">
+      <h2 className="h2">New Arrivals</h2>
       <ProductCarousel products={newArrivals} />
     </Section>
   );

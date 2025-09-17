@@ -1,7 +1,7 @@
 import { FormInput } from "@/components/FormInput";
 import { Button } from "@/components/ui/button";
 import { useUserStore } from "@/stores/useUserStore";
-import { LoaderCircle } from "lucide-react";
+import { LoaderCircle, X } from "lucide-react";
 import { useEffect, useState, type FormEvent } from "react";
 
 export const Auth = ({
@@ -41,9 +41,13 @@ export const Auth = ({
     >
       <div className="flex h-screen max-w-6xl items-center justify-center">
         <div
-          className="grid h-max grid-cols-1 bg-white shadow-2xl md:grid-cols-2 md:items-center"
+          className="relative top-0 grid h-max grid-cols-1 bg-white shadow-2xl max-md:absolute md:grid-cols-2 md:items-center"
           onClick={(e) => e.stopPropagation()}
         >
+          <X
+            className="absolute top-2 right-2 size-6 text-white md:hidden"
+            onClick={() => setShowAuth(false)}
+          />
           <div className="">
             <img
               src="/man_with_headphone.webp"

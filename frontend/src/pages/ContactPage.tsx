@@ -55,9 +55,22 @@ const services = [
 const ContactPage = () => {
   return (
     <>
-      <Section className="section">
-        <h2>Contact Us</h2>
+      <Section className="section space-y-10 lg:space-y-12 2xl:px-40">
+        <div className="max-w-[80%] lg:max-w-[60%]">
+          <h2 className="font-poppins mb-4 text-left text-2xl font-medium">
+            We believe in trends. We’re passionate about headbands & earbuds.
+          </h2>
+          <p>
+            Our products showcase timeless design — natural materials, sleek
+            lines, and classic aesthetics. Crafted to integrate seamlessly into
+            any lifestyle, they captivate with their understated elegance,
+            enduring quality, and a subtle nod to contemporary trends.
+          </p>
+        </div>
+
+        <h2 className="h2">Contact Us</h2>
         <div className="grid grid-cols-1 gap-x-2 gap-y-4 text-center md:grid-cols-3">
+          {/* Contact Info */}
           {contacts.map((contact, index) => (
             <div
               key={index}
@@ -73,11 +86,12 @@ const ContactPage = () => {
             </div>
           ))}
         </div>
-        <div className="mt-10 grid grid-cols-1 gap-x-4 gap-y-6 md:grid-cols-2">
+        <div className="mt-10 grid grid-cols-1 gap-x-4 gap-y-6 md:grid-cols-2 xl:gap-x-7">
           <div className="md:order-last">
             <img src="./map.webp" className="size-full" alt="map" />
           </div>
           <div>
+            {/* Contact Form */}
             <form action="" className="h-full">
               <div className="grid h-full grid-rows-[auto_auto_1fr_auto] space-y-4 xl:space-y-6">
                 <FormInput
@@ -114,7 +128,7 @@ const ContactPage = () => {
         </div>
       </Section>
       <div className="bg-[#F3F5F7]">
-        <div className="section grid grid-cols-2 sm:grid-cols-4">
+        <div className="section grid grid-cols-2 sm:grid-cols-4 2xl:px-40">
           {services.map((service, index) => (
             <div key={index} className="px-4 py-8">
               {service.icon}

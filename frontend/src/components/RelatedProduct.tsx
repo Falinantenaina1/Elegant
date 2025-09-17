@@ -20,21 +20,16 @@ const RelatedProduct = ({ id, category }: RelatedProps) => {
   );
 
   const productToShow = useMemo(
-    () => relatedProducts.sort(() => 0.5 - Math.random()).slice(0, 4),
+    () => relatedProducts.sort(() => 0.5 - Math.random()).slice(0, 5),
     [relatedProducts],
   );
 
   return (
     <Section>
       <h2 className="3xl:pl-20 text-left text-2xl">Related product</h2>
-      <div className="flex flex-wrap justify-center gap-x-4 gap-y-4 xl:gap-x-4 2xl:gap-x-2">
+      <div className="mx-auto mt-4 grid max-w-7xl grid-cols-2 items-stretch gap-x-2 gap-y-4 sm:grid-cols-3 md:grid-cols-4 md:gap-x-4 lg:grid-cols-5">
         {productToShow.map((product) => (
-          <div
-            key={product._id}
-            className="max-w-[15rem] basis-4/5 min-[600px]:basis-1/2 md:basis-2/5 lg:basis-1/3 xl:basis-1/4 2xl:max-w-[17rem]"
-          >
-            <ProductCard product={product} />
-          </div>
+          <ProductCard key={product._id} product={product} />
         ))}
       </div>
     </Section>

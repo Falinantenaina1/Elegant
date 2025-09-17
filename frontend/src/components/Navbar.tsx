@@ -1,6 +1,7 @@
 import { menus } from "@/constants";
 import { cn } from "@/lib/utils";
 import { useUserStore } from "@/stores/useUserStore";
+import * as SheetPrimitive from "@radix-ui/react-dialog";
 import {
   Facebook,
   HeartIcon,
@@ -157,12 +158,14 @@ export const Navbar = ({
                     </Button>
                   </div>
                 ) : (
-                  <Link
-                    to="/auth/login"
-                    className={cn(buttonVariants(), "w-full")}
-                  >
-                    Sign In
-                  </Link>
+                  <SheetPrimitive.Close className="w-full">
+                    <div
+                      onClick={() => setShowAuth(true)}
+                      className={cn(buttonVariants(), "w-full")}
+                    >
+                      Sign In
+                    </div>
+                  </SheetPrimitive.Close>
                 )}
                 <div className="flex gap-x-2">
                   <Link to="/">
