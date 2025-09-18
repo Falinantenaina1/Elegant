@@ -1,38 +1,92 @@
-import { FilterIcon } from "lucide-react";
+import { priceRanges } from "@/constants";
+import { FilterIcon, X } from "lucide-react";
+import React, { useState } from "react";
 
-const categories = ["All", "Headbands", "Earbuds", "Accessories"];
+type ProductFilterProps = {
+  toggleRange: (index: number) => void;
+  setSelectedCategory: React.Dispatch<React.SetStateAction<string>>;
+};
 
-const ProductFilter = () => {
+const categories = [
+  {
+    name: "All",
+    value: "",
+  },
+  {
+    name: "Headbands",
+    value: "Headbands",
+  },
+  {
+    name: "Earbuds",
+    value: "Earbuds",
+  },
+  {
+    name: "Accessories",
+    value: "Accessories",
+  },
+];
+
+const ProductFilter: React.FC<ProductFilterProps> = (props) => {
+  const [showFilter, setShowFilter] = useState(false);
   return (
-    <div>
-      <h2 className="flex gap-x-1">
-        <FilterIcon />
-        <span className="font-bold">Filter</span>
-      </h2>
-      <div>
+    <div className="sticky top-10 max-md:mb-4">
+      <div className="flex justify-between">
+        <h2 className="flex gap-x-1" onClick={() => setShowFilter(!showFilter)}>
+          <FilterIcon />
+          <span className="font-bold">Filter</span>
+        </h2>
+        <button
+          className={`${showFilter ? "block" : "hidden"} md:hidden`}
+          onClick={() => setShowFilter(false)}
+        >
+          <X />
+        </button>
+      </div>
+      <div
+        className={`mt-4 space-y-4 ${showFilter ? "block" : "max-md:hidden"} `}
+      >
         <div>
           <h3 className="font-semibold uppercase">Categories</h3>
           <div className="space-y-1">
-            {categories.map((category) => (
+            {categories.map((category, index) => (
               <label
-                htmlFor={category}
-                className="block cursor-pointer hover:font-semibold hover:underline"
+                htmlFor={category.name}
+                key={category.name}
+                className={`block cursor-pointer hover:font-semibold hover:underline has-checked:font-semibold has-checked:underline`}
               >
                 <input
                   type="radio"
                   name="categories"
-                  value={category}
-                  id={category}
+                  value={category.value}
+                  defaultChecked={index === 0}
+                  id={category.name}
                   className="hidden"
+                  onChange={(e) => props.setSelectedCategory(e.target.value)}
                 />
-                <span>{category}</span>
+                <span>{category.name}</span>
               </label>
             ))}
           </div>
         </div>
         <div>
           <h3 className="font-semibold uppercase">Price</h3>
-          <div className="space-y-1"></div>
+          <div className="grid space-y-2">
+            {priceRanges.map((range, index) => (
+              <div key={index}>
+                <label
+                  htmlFor={range.label}
+                  className="flex w-full justify-between text-[14px] max-md:w-40"
+                >
+                  {range.label}
+                  <input
+                    type="checkbox"
+                    onChange={() => props.toggleRange(index)}
+                    id={range.label}
+                  />
+                </label>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>

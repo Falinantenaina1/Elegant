@@ -24,3 +24,9 @@ export type Product = {
   price: number;
   category: string;
 };
+
+export type PriceRange = {
+  label: string;
+  min: number;
+  max: number;
+};

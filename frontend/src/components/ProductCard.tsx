@@ -11,7 +11,7 @@ export const ProductCard = ({
   return (
     <div
       onClick={() => (navigate(`/products/${product._id}`), scroll(0, 0))}
-      className="w-full cursor-pointer rounded-xl py-4 ring-1 ring-gray-100 transition-all duration-200 hover:-translate-y-1"
+      className="w-full cursor-pointer rounded-xl py-4 ring-2 ring-gray-100 transition-all duration-200 hover:-translate-y-1"
     >
       <img
         src={product.imageUrl}
