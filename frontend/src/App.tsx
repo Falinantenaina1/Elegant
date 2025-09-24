@@ -11,6 +11,7 @@ const ProductsPage = React.lazy(() => import("./pages/ProductsPage"));
 const ContactPage = React.lazy(() => import("./pages/ContactPage"));
 const ShopPage = React.lazy(() => import("./pages/ShopPage"));
 const NotFound = React.lazy(() => import("./pages/NotFound"));
+const CartPage = React.lazy(() => import("./pages/CartPage"));
 
 const router = createBrowserRouter([
   {
@@ -51,6 +52,14 @@ const router = createBrowserRouter([
         element: (
           <Suspense fallback={<Loading />}>
             <ContactPage />
+          </Suspense>
+        ),
+      },
+      {
+        path: "cart",
+        element: (
+          <Suspense fallback={<Loading />}>
+            <CartPage />
           </Suspense>
         ),
       },
