@@ -3,7 +3,7 @@ import { Section } from "@/components/Section";
 import { useProductStore } from "@/stores/useProductStore";
 
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { useCartStore } from "@/stores/useCartStore";
 import React, { useMemo } from "react";
 import { useParams } from "react-router-dom";
 import NotFound from "./NotFound";
@@ -13,6 +13,7 @@ const RelatedProduct = React.lazy(() => import("../components/RelatedProduct"));
 const ProductDetails = () => {
   const { id } = useParams();
   const products = useProductStore((s) => s.products);
+  const addItem = useCartStore((s) => s.addItem);
 
   const product = useMemo(() => products.find((p) => p._id === id), [id]);
 
@@ -39,16 +40,7 @@ const ProductDetails = () => {
               <span className="font-bold">Color : </span> {product.color}
             </div>
           )}
-          <div className="flex gap-x-2">
-            <Input
-              type="number"
-              step={1}
-              min={1}
-              defaultValue={1}
-              className="w-15"
-            />
-            <Button>Add to cart</Button>
-          </div>
+          <Button onClick={() => addItem(product)}>Add to cart</Button>
           <div className="text-black/25">
             <span>CATEGORY : </span>
             {product.category}

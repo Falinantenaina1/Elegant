@@ -54,7 +54,9 @@ export const Navbar = ({
         </div>
         <div className="flex grow basis-0 items-center justify-end gap-x-4">
           <Search className="size-6" />
-          <Cart />
+          <Link to={"/cart"}>
+            <Cart />
+          </Link>
           {user ? (
             <Link to={"/"} className="underline">
               {user.lastname}

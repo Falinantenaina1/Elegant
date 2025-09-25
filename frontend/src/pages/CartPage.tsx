@@ -1,13 +1,37 @@
 import { Section } from "@/components/Section";
+import { useCartStore } from "@/stores/useCartStore";
 
 const CartPage = () => {
+  const { carts } = useCartStore();
   /*  const [tab, setTabs] = useState(""); */
+  console.log(carts);
 
   return (
     <>
       <Section className="section">
         <h2>cart</h2>
-        <div></div>
+        <div>
+          <table>
+            <thead>
+              <tr>
+                <td>Product</td>
+                <td>Quantity</td>
+                <td>Price</td>
+                <td>Subtotal</td>
+              </tr>
+            </thead>
+            <tbody>
+              {carts.map((cart) => (
+                <tr key={cart._id}>
+                  <td>{cart.name}</td>
+                  <td>{cart.quantity}</td>
+                  <td>${cart.price}</td>
+                  <td>${cart.price * cart.quantity}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </Section>
       <div>
         <h3>Cart summary</h3>
