@@ -11,7 +11,6 @@ import {
   LogOutIcon,
   MenuIcon,
   Search,
-  ShoppingCart,
   Youtube,
 } from "lucide-react";
 import type { Dispatch, SetStateAction } from "react";
@@ -124,14 +123,9 @@ export const Navbar = ({
               <div className="space-y-2">
                 <div>
                   <div>
-                    <Link to="/" className="flex justify-between py-2">
+                    <Link to="/cart" className="flex justify-between py-2">
                       <span>Cart</span>
-                      <div className="flex items-center gap-x-1">
-                        <ShoppingCart className="text-black/60" />
-                        <div className="flex size-4 items-center justify-center rounded-full bg-black text-xs text-white">
-                          2
-                        </div>
-                      </div>
+                      <Cart />
                     </Link>
                     <Separator />
                     <Link to="/" className="flex justify-between py-2">
@@ -186,7 +180,9 @@ export const Navbar = ({
         </Sheet>
         <div className="flex items-center gap-x-2">
           {user && <Link to={"/"}>{user.lastname}</Link>}
-          <Cart />
+          <Link to="/cart">
+            <Cart />
+          </Link>
         </div>
       </div>
     </nav>

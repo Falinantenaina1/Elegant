@@ -40,7 +40,9 @@ const ProductDetails = () => {
               <span className="font-bold">Color : </span> {product.color}
             </div>
           )}
-          <Button onClick={() => addItem(product)}>Add to cart</Button>
+          <Button className="cursor-pointer" onClick={() => addItem(product)}>
+            Add to cart
+          </Button>
           <div className="text-black/25">
             <span>CATEGORY : </span>
             {product.category}

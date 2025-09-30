@@ -1,26 +1,31 @@
 import { Section } from "@/components/Section";
-import { useCartStore, type productWithQuanity } from "@/stores/useCartStore";
-import { Minus, Plus, X } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
+import { useCartStore } from "@/stores/useCartStore";
+import { Minus, Plus, Trash, X } from "lucide-react";
 
 const CartPage = () => {
-  const { carts, removeItem, increase, decrease } = useCartStore();
-
-  const handleDecrease = (product: productWithQuanity) => {
-    if (product.quantity === 1) {
-      return removeItem(product);
-    }
-    decrease(product._id);
-  };
+  const {
+    carts,
+    removeItem,
+    increase,
+    decrease,
+    subTotal,
+    shippingOptions,
+    selectShipping,
+    total,
+  } = useCartStore();
 
   return (
-    <>
-      <Section className="section">
-        <h2>cart</h2>
-        <div>
-          <table className="table-auto">
-            <thead className="border-b border-black font-semibold">
-              <tr className="text-center">
-                <td className="text-left">Product</td>
+    <Section className="section">
+      <h2 className="h2">Cart</h2>
+      <div className="grid grid-cols-1 space-y-4 space-x-4 md:grid-cols-3 lg:p-4">
+        {/* Desktop */}
+        <div className="min-w-full pr-4 max-lg:hidden md:col-span-2">
+          <table className="w-full table-auto">
+            <thead className="font-semibold">
+              <tr>
+                <td>Product</td>
                 <td>Quantity</td>
                 <td>Price</td>
                 <td>Subtotal</td>
@@ -28,11 +33,11 @@ const CartPage = () => {
             </thead>
             <tbody>
               {carts.map((product) => (
-                /* Product */
                 <tr key={product._id}>
+                  {/* Product */}
                   <td className="py-2 pr-4">
                     <div className="flex items-center gap-x-4">
-                      <div className="flex size-20 items-center justify-center p-4">
+                      <div className="flex size-15 items-center justify-center lg:size-20 lg:p-4">
                         <img
                           className=""
                           src={product.imageUrl}
@@ -62,26 +67,34 @@ const CartPage = () => {
                   </td>
                   {/* Quantity */}
                   <td>
-                    <div className="flex w-max items-center justify-between gap-x-2 rounded-xs border border-black/50 px-2 py-0.5">
+                    <div className="flex w-max items-center justify-between gap-x-0.5 rounded-xs border border-black/50 py-0.5 lg:gap-x-2 lg:px-2">
                       <button className="cursor-pointer">
-                        <Minus
-                          strokeWidth={1}
-                          className="size-5 text-black"
-                          onClick={() => handleDecrease(product)}
-                        />
+                        {product.quantity >= 2 ? (
+                          <Minus
+                            strokeWidth={1}
+                            className="size-4 hover:scale-125 lg:size-5"
+                            onClick={() => decrease(product._id)}
+                          />
+                        ) : (
+                          <Trash
+                            strokeWidth={1}
+                            className="size-4 hover:scale-125"
+                            onClick={() => removeItem(product)}
+                          />
+                        )}
                       </button>
                       {product.quantity}
                       <button className="cursor-pointer">
                         <Plus
                           strokeWidth={1}
-                          className="size-5 text-black"
+                          className="size-5 hover:scale-125"
                           onClick={() => increase(product._id)}
                         />
                       </button>
                     </div>
                   </td>
                   <td>
-                    <div className="px-4">${product.price}</div>
+                    <div>${product.price}</div>
                   </td>
                   <td>${(product.price * product.quantity).toFixed(2)}</td>
                 </tr>
@@ -89,47 +102,116 @@ const CartPage = () => {
             </tbody>
           </table>
         </div>
-      </Section>
-      <div>
-        <h3>Cart summary</h3>
-        <div>
-          <label htmlFor="free">
-            <input type="radio" name="free" />
-            <div>
-              <span>Free shipping</span>
-              <span>$0.00</span>
+        {/* Mobile */}
+        <div className="col-span-2 lg:hidden">
+          <h2 className="font-bold">Product</h2>
+          <Separator />
+          {carts.map((product) => (
+            <div key={product._id}>
+              <div className="flex justify-between gap-x-1.5 py-4">
+                <div className="flex items-center">
+                  <div className="mr-4 w-15">
+                    <img
+                      src={product.imageUrl}
+                      alt={`${product.name} image`}
+                      className="size-full object-contain"
+                    />
+                  </div>
+                  <div className="space-y-1">
+                    <h3 className="text-sm font-medium">{product.name}</h3>
+                    {product.color && (
+                      <p className="text-sm">Color: {product.color}</p>
+                    )}
+                    <div className="flex w-max items-center justify-between gap-x-2 rounded-xs border border-black/50 px-2 py-0.5">
+                      <button className="cursor-pointer">
+                        {product.quantity >= 2 ? (
+                          <Minus
+                            strokeWidth={1}
+                            className="hover:scale-125= size-4"
+                            onClick={() => decrease(product._id)}
+                          />
+                        ) : (
+                          <Trash
+                            strokeWidth={1}
+                            className="size-4 hover:scale-125"
+                            onClick={() => removeItem(product)}
+                          />
+                        )}
+                      </button>
+                      {product.quantity}
+                      <button className="cursor-pointer">
+                        <Plus
+                          strokeWidth={1}
+                          className="size-5 hover:scale-125"
+                          onClick={() => increase(product._id)}
+                        />
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="space-y-2 text-right">
+                  <p className="text-sm font-medium">${product.price}</p>
+                  <button
+                    onClick={() => removeItem(product)}
+                    className="cursor-pointer"
+                  >
+                    <X className="size-5" strokeWidth={1} />
+                  </button>
+                </div>
+              </div>
+              <Separator />
             </div>
-          </label>
+          ))}
+          <h3></h3>
         </div>
+        {/* Cart Summary */}
         <div>
-          <label htmlFor="free">
-            <input type="radio" name="free" />
-            <div>
-              <span>Free shipping</span>
-              <span>$0.00</span>
+          <div className="mx-auto max-w-[20rem] rounded-md border border-gray-500 p-4">
+            <h3 className="mb-4 text-xl font-semibold">Cart summary</h3>
+            <div className="space-y-3">
+              {/* Listing shipping option */}
+              {shippingOptions.map((shipping, index) => (
+                <label
+                  key={shipping.id}
+                  htmlFor={shipping.id}
+                  className="flex cursor-pointer gap-x-1 rounded-md border border-gray-500 px-4 py-3 has-checked:bg-gray-200"
+                >
+                  <input
+                    type="radio"
+                    name="delivery"
+                    value={shipping.id}
+                    id={shipping.id}
+                    defaultChecked={index === 0}
+                    onChange={() => selectShipping(shipping.id)}
+                  />
+                  <div className="flex w-full items-center justify-between">
+                    <span>{shipping.label}</span>
+                    <span className="">
+                      {shipping.costPercent
+                        ? `${shipping.costPercent}%`
+                        : `$${shipping.costFixed}`}
+                    </span>
+                  </div>
+                </label>
+              ))}
             </div>
-          </label>
-        </div>
-        <div>
-          <label htmlFor="express">
-            <input type="radio" name="express" />
             <div>
-              <span>Express shipping</span>
-              <span>+$15.00</span>
+              <div className="flex justify-between py-3">
+                <span>Subtotal</span>
+                <span className="font-medium">${subTotal().toFixed(2)}</span>
+              </div>
+              <Separator />
+              <div className="flex justify-between py-3 font-bold">
+                <span>Total</span>
+                <span>${total().toFixed(2)}</span>
+              </div>
+              <Button className="w-full cursor-pointer py-6">Checkout</Button>
             </div>
-          </label>
-        </div>
-        <div>
-          <label htmlFor="pickup">
-            <input type="radio" name="pickup" />
-            <div>
-              <span>Pick Up</span>
-              <span>%21</span>
-            </div>
-          </label>
+          </div>
         </div>
       </div>
-    </>
+    </Section>
   );
 };
 

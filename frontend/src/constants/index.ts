@@ -10,10 +10,6 @@ export const menus = [
     href: "/shop",
   },
   {
-    name: "Product",
-    href: "/products",
-  },
-  {
     name: "Contact Us",
     href: "/contact",
   },

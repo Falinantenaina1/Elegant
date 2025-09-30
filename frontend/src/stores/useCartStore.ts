@@ -5,21 +5,41 @@ import { persist } from "zustand/middleware";
 
 export type productWithQuanity = Product & { quantity: number };
 
+type ShippingOption = {
+  id: string;
+  label: string;
+  costFixed?: number;
+  costPercent?: number;
+};
+
 type CartStoreType = {
   carts: productWithQuanity[];
+  shippingOptions: ShippingOption[];
+  selectedShippingId: string;
+
   addItem: (product: Product) => void;
   removeItem: (product: Product) => void;
   increase: (id: Product["_id"]) => void;
   decrease: (product: Product["_id"]) => void;
   clearCart: () => void;
-  total: () => number;
+  selectShipping: (shippingId: ShippingOption["id"]) => void;
+
+  subTotal: () => number;
   countItems: () => number;
+  shippingCost: () => number;
+  total: () => number;
 };
 
 export const useCartStore = create<CartStoreType>()(
   persist(
     (set, get) => ({
       carts: [],
+      shippingOptions: [
+        { id: "basic", label: "Basic shipping", costFixed: 0 },
+        { id: "express", label: "Express shipping", costFixed: 15 },
+        { id: "pickup", label: "Pick Up", costPercent: -15 },
+      ],
+      selectedShippingId: "basic",
       /* Add Cart */
       addItem: (product) => {
         set((state) => {
@@ -68,11 +88,42 @@ export const useCartStore = create<CartStoreType>()(
           }),
         }));
       },
-
+      /* Clear Cart */
       clearCart: () => set({ carts: [] }),
-      total: () =>
+
+      /*Total price of items*/
+      subTotal: () =>
         get().carts.reduce((s, item) => s + item.price * item.quantity, 0),
+
+      /*Number of product in the cart*/
       countItems: () => get().carts.length,
+      /*Type of shipping*/
+      selectShipping: (shippingId) => set({ selectedShippingId: shippingId }),
+      /*Price of shipping*/
+      shippingCost: () => {
+        const selectedId = get().selectedShippingId;
+        const option = get().shippingOptions.find(
+          (opt) => opt.id === selectedId,
+        );
+        const base = get().subTotal();
+
+        if (!option) return 0;
+
+        if (option.costFixed != null) {
+          return option.costFixed;
+        } else if (option.costPercent != null) {
+          return base * (option.costPercent / 100);
+        } else {
+          return 0;
+        }
+      },
+
+      /*Total to pay*/
+      total: () => {
+        const base = get().subTotal();
+        const ship = get().shippingCost();
+        return base + ship;
+      },
     }),
     {
       name: "elegant-cart",

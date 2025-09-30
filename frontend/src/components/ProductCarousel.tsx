@@ -2,7 +2,6 @@ import { ProductCard } from "@/components/ProductCard";
 import {
   Carousel,
   CarouselContent,
-  CarouselItem,
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
@@ -13,12 +12,11 @@ export const ProductCarousel = ({ products }: { products: Product[] }) => {
     <Carousel className="w-full">
       <CarouselContent className="py-1">
         {products.map((product) => (
-          <CarouselItem
+          <ProductCard
             key={product._id}
-            className="basis-1/2 sm:basis-1/3 md:basis-1/4 lg:basis-1/5"
-          >
-            <ProductCard product={product} />
-          </CarouselItem>
+            product={product}
+            className="mr-4 min-w-0 shrink-0 grow-0 basis-1/2 sm:basis-1/3 md:basis-1/4 lg:basis-1/5"
+          />
         ))}
       </CarouselContent>
       <CarouselPrevious />
