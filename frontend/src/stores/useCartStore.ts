@@ -12,7 +12,7 @@ type ShippingOption = {
   costPercent?: number;
 };
 
-type CartStoreType = {
+export type CartStoreType = {
   carts: productWithQuanity[];
   shippingOptions: ShippingOption[];
   selectedShippingId: string;

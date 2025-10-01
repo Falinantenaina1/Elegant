@@ -57,7 +57,7 @@ export const Navbar = ({
             <Cart />
           </Link>
           {user ? (
-            <Link to={"/"} className="underline">
+            <Link to={"/user"} className="underline">
               {user.lastname}
             </Link>
           ) : (

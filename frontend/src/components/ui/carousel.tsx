@@ -183,7 +183,7 @@ function CarouselPrevious({
       variant={variant}
       size={size}
       className={cn(
-        "absolute size-6 rounded-full md:size-8",
+        "absolute size-6 cursor-pointer rounded-full md:size-8",
         orientation === "horizontal"
           ? "-top-10 right-7 -translate-y-1/2 md:-top-12 md:right-10"
           : "-top-12 left-1/2 -translate-x-1/2 rotate-90",

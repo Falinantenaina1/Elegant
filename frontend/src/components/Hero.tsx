@@ -29,7 +29,7 @@ export const Hero = () => {
               Experience music like never before
             </p>
             <Link
-              to={"/"}
+              to={"/shop"}
               className={cn(buttonVariants({ size: "lg" }), "mt-4 xl:mt-6")}
             >
               Shopping Now
