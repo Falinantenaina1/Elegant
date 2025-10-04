@@ -7,6 +7,7 @@ import path from "path";
 import { connectDb } from "./lib/db.js";
 import authRoutes from "./routes/auth.route.js";
 import productRoutes from "./routes/product.route.js";
+import userRoutes from "./routes/user.route.js";
 
 dotenv.config();
 
@@ -34,6 +35,7 @@ app.use(express.json());
 
 app.use("/api/auth", authRoutes);
 app.use("/api/products", productRoutes);
+app.use("/api/user", userRoutes);
 
 if (process.env.NODE_ENV === "production") {
   const frontendPath = path.join(__dirname, "./frontend/dist");
