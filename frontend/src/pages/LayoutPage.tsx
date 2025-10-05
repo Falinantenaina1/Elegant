@@ -20,7 +20,7 @@ const LayoutPage = () => {
 
   useEffect(() => {
     getAllProduct();
-  });
+  }, []);
 
   return (
     <div className="mx-auto flex min-h-screen max-w-[120rem] flex-col">

@@ -18,6 +18,14 @@ type UserStore = {
   login: (loginData: { email: string; password: string }) => void;
   logout: () => void;
   checkAuth: () => void;
+  updateUser: (
+    userId: string | undefined,
+    firstname: string | undefined,
+    lastname: string | undefined,
+    oldPassword: string,
+    newPassword: string,
+    newConfirmation: string,
+  ) => void;
 };
 
 export const useUserStore = create<UserStore>((set) => ({
@@ -84,6 +92,38 @@ export const useUserStore = create<UserStore>((set) => ({
       set({ user: res.data, isCheckingAuth: false });
     } catch {
       set({ isCheckingAuth: false });
+    }
+  },
+
+  updateUser: async (
+    userId,
+    firstname,
+    lastname,
+    oldPassword,
+    newPassword,
+    newConfirmation,
+  ) => {
+    set({ loading: true });
+    try {
+      if (newPassword !== newConfirmation)
+        return toast.error("The new Password doesn't match");
+      const res = await axios.put(`/user/${userId}`, {
+        firstname,
+        lastname,
+        oldPassword,
+        newPassword,
+      });
+
+      set({ user: res.data });
+      set({ loading: false });
+      toast.success("Information Updated");
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        toast.error(error.response?.data.message || "Internal server error", {
+          id: "Edit error",
+        });
+      }
+      set({ loading: false });
     }
   },
 }));

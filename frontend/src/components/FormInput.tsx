@@ -9,7 +9,11 @@ type FormInput = {
   placeholder?: string;
   value?: string;
   labelStyle?: string;
+  inputStyle?: string;
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
+  required?: boolean;
+  disabled?: boolean;
+  defaultValue?: string;
 };
 
 export const FormInput = (props: FormInput) => {
@@ -25,8 +29,9 @@ export const FormInput = (props: FormInput) => {
         placeholder={props.placeholder || ""}
         value={props.value}
         onChange={props.onChange}
-        required
         autoComplete="on"
+        className={props.inputStyle || ""}
+        defaultValue={props.defaultValue}
       />
     </div>
   );
