@@ -8,6 +8,8 @@ const AccountDetails = React.lazy(
   () => import("@/components/users/AccountDetails"),
 );
 
+const Address = React.lazy(() => import("@/components/users/Address"));
+
 const tabsMenu = ["Account", "Address", "Orders"];
 
 const UserPage = () => {
@@ -59,6 +61,11 @@ const UserPage = () => {
           {tabs === "Account" && (
             <Suspense fallback={<Loading />}>
               <AccountDetails />
+            </Suspense>
+          )}
+          {tabs === "Address" && (
+            <Suspense fallback={<Loading />}>
+              <Address />
             </Suspense>
           )}
         </div>

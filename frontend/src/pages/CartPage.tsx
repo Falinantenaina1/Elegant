@@ -1,57 +1,12 @@
+import { MobileCart } from "@/components/carts/MobileCart";
+import ProductQuantity from "@/components/carts/ProductQuantity";
 import { Section } from "@/components/Section";
-import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import {
-  useCartStore,
-  type CartStoreType,
-  type productWithQuanity,
-} from "@/stores/useCartStore";
-import { Minus, Plus, Trash, X } from "lucide-react";
-
-type ProductQuantityProps = {
-  product: productWithQuanity;
-  decrease: CartStoreType["decrease"];
-  increase: CartStoreType["increase"];
-  removeItem: CartStoreType["removeItem"];
-};
-
-const ProductQuantity = ({
-  product,
-  decrease,
-  removeItem,
-  increase,
-}: ProductQuantityProps) => {
-  return (
-    <div className="flex w-max items-center justify-between gap-x-0.5 rounded-xs border border-black/50 py-0.5 lg:gap-x-2 lg:px-2">
-      <button className="cursor-pointer">
-        {product.quantity >= 2 ? (
-          <Minus
-            strokeWidth={1}
-            className="hover:scale-125 lg:size-5"
-            onClick={() => decrease(product._id)}
-          />
-        ) : (
-          <Trash
-            strokeWidth={1}
-            className="size-5 hover:scale-125"
-            onClick={() => removeItem(product)}
-          />
-        )}
-      </button>
-      {product.quantity}
-      <button
-        className="cursor-pointer disabled:cursor-not-allowed"
-        disabled={product.quantity >= 10}
-      >
-        <Plus
-          strokeWidth={1}
-          className="size-5 hover:scale-125"
-          onClick={() => increase(product._id)}
-        />
-      </button>
-    </div>
-  );
-};
+import { cn } from "@/lib/utils";
+import { useCartStore } from "@/stores/useCartStore";
+import { X } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const CartPage = () => {
   const {
@@ -146,45 +101,7 @@ const CartPage = () => {
         <div className="col-span-2 lg:hidden">
           <h2 className="font-bold">Product</h2>
           <Separator />
-          {carts.map((product) => (
-            <div key={product._id}>
-              <div className="flex justify-between gap-x-1.5 py-4">
-                <div className="flex items-center">
-                  <div className="mr-4 w-15">
-                    <img
-                      src={product.imageUrl}
-                      alt={`${product.name} image`}
-                      className="size-full object-contain"
-                    />
-                  </div>
-                  <div className="space-y-1">
-                    <h3 className="text-sm font-medium">{product.name}</h3>
-                    {product.color && (
-                      <p className="text-sm">Color: {product.color}</p>
-                    )}
-                    {/* Quantity */}
-                    <ProductQuantity
-                      product={product}
-                      increase={increase}
-                      decrease={decrease}
-                      removeItem={removeItem}
-                    />
-                  </div>
-                </div>
-
-                <div className="space-y-2 text-right">
-                  <p className="text-sm font-medium">${product.price}</p>
-                  <button
-                    onClick={() => removeItem(product)}
-                    className="cursor-pointer"
-                  >
-                    <X className="size-5" strokeWidth={1} />
-                  </button>
-                </div>
-              </div>
-              <Separator />
-            </div>
-          ))}
+          <MobileCart />
           <h3></h3>
         </div>
         {/* Cart Summary */}
@@ -228,7 +145,12 @@ const CartPage = () => {
                 <span>Total</span>
                 <span>${total().toFixed(2)}</span>
               </div>
-              <Button className="w-full cursor-pointer py-6">Checkout</Button>
+              <Link
+                to="/checkout"
+                className={cn(buttonVariants(), "w-full cursor-pointer py-6")}
+              >
+                Checkout
+              </Link>
             </div>
           </div>
         </div>
