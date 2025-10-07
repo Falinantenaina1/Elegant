@@ -13,7 +13,6 @@ const ShopPage = React.lazy(() => import("./pages/ShopPage"));
 const NotFound = React.lazy(() => import("./pages/NotFound"));
 const CartPage = React.lazy(() => import("./pages/CartPage"));
 const UserPage = React.lazy(() => import("./pages/UserPage"));
-const CheckOut = React.lazy(() => import("@/components/CheckOut"));
 
 const router = createBrowserRouter([
   {
@@ -62,14 +61,6 @@ const router = createBrowserRouter([
         element: (
           <Suspense fallback={<Loading />}>
             <CartPage />
-          </Suspense>
-        ),
-      },
-      {
-        path: "checkout",
-        element: (
-          <Suspense fallback={<Loading />}>
-            <CheckOut />
           </Suspense>
         ),
       },

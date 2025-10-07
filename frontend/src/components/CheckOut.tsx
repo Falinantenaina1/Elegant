@@ -2,7 +2,6 @@ import { useCartStore } from "@/stores/useCartStore";
 import { useUserStore } from "@/stores/useUserStore";
 import { MobileCart } from "./carts/MobileCart";
 import { FormInput } from "./FormInput";
-import { Section } from "./Section";
 import { Button } from "./ui/button";
 import { Label } from "./ui/label";
 import {
@@ -19,9 +18,8 @@ const CheckOut = () => {
   const { user } = useUserStore();
   const { selectedShippingId, subTotal, total } = useCartStore();
   return (
-    <Section className="section">
+    <>
       <div className="mx-auto max-w-6xl">
-        <h2 className="h2">Checkout</h2>
         <div className="grid grid-cols-1 gap-x-16 gap-y-8 lg:grid-cols-10">
           {/* Information */}
           <div className="space-y-6 lg:col-span-6">
@@ -145,7 +143,7 @@ const CheckOut = () => {
           Place Order
         </Button>
       </div>
-    </Section>
+    </>
   );
 };
 
