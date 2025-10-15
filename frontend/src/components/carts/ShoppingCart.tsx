@@ -4,6 +4,7 @@ import { Section } from "@/components/Section";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { useCartStore } from "@/stores/useCartStore";
+import { useUserStore } from "@/stores/useUserStore";
 import { X } from "lucide-react";
 
 const ShoppingCart = ({
@@ -23,6 +24,8 @@ const ShoppingCart = ({
     countItems,
   } = useCartStore();
 
+  const { isAuth, setShowAuth } = useUserStore();
+
   if (countItems() === 0)
     return (
       <Section className="section">
@@ -31,6 +34,16 @@ const ShoppingCart = ({
         </div>
       </Section>
     );
+
+  const handleClick = () => {
+    if (isAuth) {
+      setTabs("Checkout details");
+    } else {
+      setShowAuth(true);
+    }
+  };
+
+  console.log(carts);
 
   return (
     <>
@@ -148,7 +161,7 @@ const ShoppingCart = ({
               </div>
               <Button
                 className="w-full cursor-pointer py-6"
-                onClick={() => setTabs("Checkout details")}
+                onClick={handleClick}
               >
                 Checkout
               </Button>

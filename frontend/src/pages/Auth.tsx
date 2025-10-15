@@ -4,12 +4,8 @@ import { useUserStore } from "@/stores/useUserStore";
 import { LoaderCircle, X } from "lucide-react";
 import { useEffect, useState, type FormEvent } from "react";
 
-export const Auth = ({
-  setShowAuth,
-}: {
-  setShowAuth: (arg: boolean) => void;
-}) => {
-  const { user, loading, signup, login } = useUserStore();
+export const Auth = () => {
+  const { user, loading, signup, login, setShowAuth } = useUserStore();
 
   const [auth, setAuth] = useState<"login" | "signup">("login");
 

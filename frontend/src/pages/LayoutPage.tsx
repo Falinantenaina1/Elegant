@@ -4,13 +4,12 @@ import { useProductStore } from "@/stores/useProductStore";
 import Loading from "@/components/Loading";
 import { Navbar } from "@/components/Navbar";
 import { useUserStore } from "@/stores/useUserStore";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Outlet } from "react-router-dom";
 import { Auth } from "./Auth";
 
 const LayoutPage = () => {
-  const { isCheckingAuth, checkAuth } = useUserStore();
-  const [showAuth, setShowAuth] = useState(false);
+  const { isCheckingAuth, checkAuth, isShowingAuth } = useUserStore();
   const getAllProduct = useProductStore((s) => s.getAllProduct);
   const isGettingProduct = useProductStore((s) => s.isGettingProduct);
 
@@ -25,8 +24,8 @@ const LayoutPage = () => {
   return (
     <div className="mx-auto flex min-h-screen max-w-[120rem] flex-col">
       <div className="flex min-h-screen flex-col justify-between">
-        {showAuth && <Auth setShowAuth={setShowAuth} />}
-        <Navbar setShowAuth={setShowAuth} />
+        {isShowingAuth && <Auth />}
+        <Navbar />
         <main className="font-inter w-full flex-1">
           {isCheckingAuth || isGettingProduct ? <Loading /> : <Outlet />}
         </main>

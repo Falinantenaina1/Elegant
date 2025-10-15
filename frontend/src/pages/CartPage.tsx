@@ -30,7 +30,7 @@ const CartPage = () => {
         </div>
         <div className="py-6">
           {tabs === "Shopping cart" && <ShoppingCart setTabs={setTabs} />}
-          {tabs === "Checkout details" && <CheckOut />}
+          {tabs === "Checkout details" && <CheckOut setTabs={setTabs} />}
           {tabs === "Order complete" && <OrderComplete />}
         </div>
       </div>

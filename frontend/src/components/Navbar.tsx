@@ -13,7 +13,6 @@ import {
   Search,
   Youtube,
 } from "lucide-react";
-import type { Dispatch, SetStateAction } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { Cart } from "./Cart";
 import { Button, buttonVariants } from "./ui/button";
@@ -27,12 +26,8 @@ import {
   SheetTrigger,
 } from "./ui/sheet";
 
-export const Navbar = ({
-  setShowAuth,
-}: {
-  setShowAuth: Dispatch<SetStateAction<boolean>>;
-}) => {
-  const { user, logout } = useUserStore();
+export const Navbar = () => {
+  const { user, logout, setShowAuth } = useUserStore();
   return (
     <nav className="bg-yellow/64 w-full">
       {/* Desktop Navbar */}

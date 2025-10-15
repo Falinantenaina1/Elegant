@@ -7,7 +7,10 @@ import axios from "../lib/axios";
 type UserStore = {
   user: User | null;
   loading: boolean;
+  isAuth: boolean;
   isCheckingAuth: boolean;
+  isShowingAuth: boolean;
+  setShowAuth: (bool: boolean) => void;
   signup: (signupData: {
     firstname: string;
     lastname: string;
@@ -32,6 +35,12 @@ export const useUserStore = create<UserStore>((set) => ({
   user: null,
   loading: false,
   isCheckingAuth: true,
+  isAuth: false,
+  isShowingAuth: false,
+
+  setShowAuth: (bool: boolean) => {
+    set({ isShowingAuth: bool });
+  },
 
   signup: async (signupData) => {
     set({ loading: true });
@@ -41,7 +50,7 @@ export const useUserStore = create<UserStore>((set) => ({
       }
 
       const res = await axios.post("/auth/signup", signupData);
-      set({ user: res.data });
+      set({ user: res.data, isAuth: true });
       toast.success("User connected");
     } catch (error) {
       if (error instanceof AxiosError) {
@@ -59,7 +68,7 @@ export const useUserStore = create<UserStore>((set) => ({
     set({ loading: true });
     try {
       const res = await axios.post("/auth/login", loginData);
-      set({ user: res.data });
+      set({ user: res.data, isAuth: true });
       toast.success("User connected");
     } catch (error) {
       if (error instanceof AxiosError) {
@@ -77,7 +86,7 @@ export const useUserStore = create<UserStore>((set) => ({
     set({ loading: true });
     try {
       await axios.post("auth/logout");
-      set({ user: null });
+      set({ user: null, isAuth: false });
       toast.success("User deconnected");
     } catch {
       toast.error("An error occured");
@@ -89,7 +98,7 @@ export const useUserStore = create<UserStore>((set) => ({
   checkAuth: async () => {
     try {
       const res = await axios.get("/auth/me");
-      set({ user: res.data, isCheckingAuth: false });
+      set({ user: res.data, isCheckingAuth: false, isAuth: true });
     } catch {
       set({ isCheckingAuth: false });
     }
