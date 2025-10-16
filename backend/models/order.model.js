@@ -2,18 +2,17 @@ import mongoose from "mongoose";
 
 const orderSchema = new mongoose.Schema(
   {
-    products: [
+    itmes: [
       {
-        product: {
+        productId: {
           type: mongoose.Schema.Types.ObjectId,
           ref: "Product",
           required: true,
         },
-        quantity: {
-          type: Number,
-          required: true,
-          default: 1,
-        },
+        productName: String,
+        productImageUrl: String,
+        quantity: { type: Number, required: true, min: 1 },
+        priceAtPurchase: { type: Number, required: true, min: 0 },
       },
     ],
     totalAmount: {
@@ -35,9 +34,17 @@ const orderSchema = new mongoose.Schema(
     shippingType: {
       type: String,
       enum: ["BASIC", "EXPRESS", "PICKUP"],
+      required,
+    },
+    shippingAddress: {
+      street: String,
+      city: String,
+      postalCode: String,
+      country: String,
     },
     customer: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: mongoose.Schema.Types.Obj,
+      ectId,
       ref: "User",
       required: true,
     },
@@ -45,6 +52,6 @@ const orderSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-const order = mongoose.model("order", orderSchema);
+const Order = mongoose.model("order", orderSchema);
 
-export default order;
+export default Order;
