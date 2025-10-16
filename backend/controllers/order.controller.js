@@ -4,19 +4,19 @@ import Product from "../models/product.model.js";
 export const createOrder = async (req, res) => {
   try {
     const userId = req.user._id;
-    const { carts, total, shippingType, shippingdAddress } = req.body;
+    const { carts, totalAmount, shippingType, shippingdAddress } = req.body;
 
     const items = [];
 
-    for (const item of carts) {
-      const product = await Product.findById(item._id);
+    for (const cart of carts) {
+      const product = await Product.findById(cart._id);
       if (!product) {
         return res.status(400).json({ error: "Product not found" });
       }
 
       const item = {
         product: product._id,
-        quantity: item.quantity,
+        quantity: cart.quantity,
         priceAtPurchase: product.price,
       };
 
@@ -24,9 +24,9 @@ export const createOrder = async (req, res) => {
     }
 
     const order = new Order({
-      user: userId,
+      customer: userId,
       items,
-      totaltotalAmount: total,
+      totalAmount: totalAmount,
       shippingdAddress,
       shippingType,
     });
@@ -62,7 +62,7 @@ export const getOrdersByUser = async (req, res) => {
     ).toSorted({ createdAt: -1 });
     return res.status(200).json({ orders });
   } catch (error) {
-    console.log("Error in getAllOrders controller:", error);
+    console.log("Error in getAllOrders controller:", error.message);
     res.status(500).json({ error: "Internal server error" });
   }
 };
