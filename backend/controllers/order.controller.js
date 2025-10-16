@@ -1,5 +1,6 @@
 import Order from "../models/order.model.js";
 import Product from "../models/product.model.js";
+
 export const createOrder = async (req, res) => {
   try {
     const userId = req.user._id;
@@ -35,6 +36,19 @@ export const createOrder = async (req, res) => {
     res.status(201).json(order);
   } catch (error) {
     console.log("Error in createOrder controller:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+export const getAllOrders = async (req, res) => {
+  try {
+    const orders = await Order.find()
+      .populate("items.product")
+      .sort({ createdAt: -1 });
+
+    return res.status(200).json(orders);
+  } catch (error) {
+    onsole.log("Error in getAllOrders controller:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 };
