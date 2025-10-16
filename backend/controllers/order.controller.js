@@ -48,7 +48,21 @@ export const getAllOrders = async (req, res) => {
 
     return res.status(200).json(orders);
   } catch (error) {
-    onsole.log("Error in getAllOrders controller:", error);
+    console.log("Error in getAllOrders controller:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+export const getOrdersByUser = async (req, res) => {
+  try {
+    const userId = req.user._id;
+
+    const orders = (
+      await Order.find({ user: userId }).populate("items.product")
+    ).toSorted({ createdAt: -1 });
+    return res.status(200).json({ orders });
+  } catch (error) {
+    console.log("Error in getAllOrders controller:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 };
