@@ -4,13 +4,11 @@ const orderSchema = new mongoose.Schema(
   {
     itmes: [
       {
-        productId: {
-          type: mongoose.Schema.Types.ObjectId,
+        product: {
+          ype: Schema.Types.ObjectId,
           ref: "Product",
           required: true,
         },
-        productName: String,
-        productImageUrl: String,
         quantity: { type: Number, required: true, min: 1 },
         priceAtPurchase: { type: Number, required: true, min: 0 },
       },
