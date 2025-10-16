@@ -57,12 +57,15 @@ export const getOrdersByUser = async (req, res) => {
   try {
     const userId = req.user._id;
 
-    const orders = (
-      await Order.find({ user: userId }).populate("items.product")
-    ).toSorted({ createdAt: -1 });
-    return res.status(200).json({ orders });
+    const orders = await Order.find({ customer: userId })
+      .populate("items.product")
+      .sort({ createdAt: -1 });
+
+    if (orders.length === 0)
+      return res.status(404).json({ message: "Orders not found" });
+    return res.status(200).json(orders);
   } catch (error) {
-    console.log("Error in getAllOrders controller:", error.message);
+    console.log("Error in getAllOrders controller:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 };
