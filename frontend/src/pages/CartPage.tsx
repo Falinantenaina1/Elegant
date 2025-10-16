@@ -10,7 +10,7 @@ const CartPage = () => {
   return (
     <div className="mx-auto max-w-7xl">
       <div className="px-6 py-6">
-        <h2 className="h2">Cart</h2>
+        <h2 className="h2">{tabs}</h2>
         <div className="flex items-center justify-center gap-x-8 overflow-hidden">
           {tabsName.map((tabName, index) => (
             <button

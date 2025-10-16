@@ -153,7 +153,7 @@ const CheckOut = ({
         </div>
         <Button
           className="mx-auto mt-6 w-full cursor-pointer lg:w-1/2"
-          onClick={() => setTabs("Shopping cart")}
+          onClick={() => setTabs("Order complete")}
         >
           Place Order
         </Button>
