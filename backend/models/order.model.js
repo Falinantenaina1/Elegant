@@ -5,7 +5,7 @@ const orderSchema = new mongoose.Schema(
     itmes: [
       {
         product: {
-          type: Schema.Types.ObjectId,
+          type: mongoose.Schema.Types.ObjectId,
           ref: "Product",
           required: true,
         },
@@ -32,7 +32,7 @@ const orderSchema = new mongoose.Schema(
     shippingType: {
       type: String,
       enum: ["BASIC", "EXPRESS", "PICKUP"],
-      required,
+      required: true,
     },
     shippingAddress: {
       street: String,
@@ -41,8 +41,7 @@ const orderSchema = new mongoose.Schema(
       country: String,
     },
     customer: {
-      type: mongoose.Schema.Types.Obj,
-      ectId,
+      type: mongoose.Schema.Types.ObjectId,
       ref: "User",
       required: true,
     },
