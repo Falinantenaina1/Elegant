@@ -1,4 +1,5 @@
 import { useCartStore } from "@/stores/useCartStore";
+import { useOrderStore } from "@/stores/useOrderStore";
 import { useUserStore } from "@/stores/useUserStore";
 import { useEffect } from "react";
 import { MobileCart } from "./carts/MobileCart";
@@ -21,6 +22,13 @@ const CheckOut = ({
   setTabs: React.Dispatch<React.SetStateAction<string>>;
 }) => {
   const { user, isShowingAuth, isAuth } = useUserStore();
+  const { createOrder } = useOrderStore();
+  const { carts, selectedShippingId, subTotal, total } = useCartStore();
+
+  const handleClick = async () => {
+    createOrder(carts, total(), selectedShippingId.toUpperCase());
+    setTabs("Order complete");
+  };
 
   useEffect(() => {
     if (!isAuth) {
@@ -28,7 +36,6 @@ const CheckOut = ({
     }
   }, [isShowingAuth, isAuth]);
 
-  const { selectedShippingId, subTotal, total } = useCartStore();
   return (
     <>
       <div className="mx-auto max-w-6xl">
@@ -153,7 +160,7 @@ const CheckOut = ({
         </div>
         <Button
           className="mx-auto mt-6 w-full cursor-pointer lg:w-1/2"
-          onClick={() => setTabs("Order complete")}
+          onClick={handleClick}
         >
           Place Order
         </Button>

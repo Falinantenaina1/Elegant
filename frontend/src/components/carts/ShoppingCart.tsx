@@ -43,8 +43,6 @@ const ShoppingCart = ({
     }
   };
 
-  console.log(carts);
-
   return (
     <>
       <div className="grid grid-cols-1 space-y-4 space-x-4 md:grid-cols-3 lg:p-4">
