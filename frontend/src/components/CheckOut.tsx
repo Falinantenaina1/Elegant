@@ -23,10 +23,12 @@ const CheckOut = ({
 }) => {
   const { user, isShowingAuth, isAuth } = useUserStore();
   const { createOrder } = useOrderStore();
-  const { carts, selectedShippingId, subTotal, total } = useCartStore();
+  const { carts, selectedShippingId, subTotal, total, clearCart } =
+    useCartStore();
 
-  const handleClick = async () => {
+  const handleOrder = async () => {
     createOrder(carts, total(), selectedShippingId.toUpperCase());
+    clearCart();
     setTabs("Order complete");
   };
 
@@ -160,7 +162,7 @@ const CheckOut = ({
         </div>
         <Button
           className="mx-auto mt-6 w-full cursor-pointer lg:w-1/2"
-          onClick={handleClick}
+          onClick={handleOrder}
         >
           Place Order
         </Button>

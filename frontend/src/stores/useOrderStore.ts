@@ -6,7 +6,7 @@ import axios from "../lib/axios";
 import type { productWithQuanity } from "./useCartStore";
 
 type OrderStoreType = {
-  orders: {
+  order: {
     _id: string;
     items: {
       product: Product;
@@ -17,7 +17,7 @@ type OrderStoreType = {
     shippingType: "BASIC" | "EXPRESS" | "PICKUP";
     customer: User["id"];
     createdAt: Date;
-  }[];
+  } | null;
 
   allOrders: {
     _id: string;
@@ -32,6 +32,8 @@ type OrderStoreType = {
     createdAt: Date;
   }[];
 
+  loading: boolean;
+
   createOrder: (
     carts: productWithQuanity[],
     totalAmount: number,
@@ -41,13 +43,18 @@ type OrderStoreType = {
   getAllorder: () => void;
 
   getUserOrder: () => void;
+
+  clearOrder: () => void;
 };
 
 export const useOrderStore = create<OrderStoreType>((set) => ({
-  orders: [],
+  order: null,
   allOrders: [],
+  isOrderCreated: false,
+  loading: false,
 
   createOrder: async (carts, totalAmount, shippingType) => {
+    set({ loading: true, order: null });
     try {
       const res = await axios.post("/order", {
         carts,
@@ -55,20 +62,22 @@ export const useOrderStore = create<OrderStoreType>((set) => ({
         shippingType,
       });
 
-      set((state) => ({ orders: [res.data, ...state.orders] }));
+      set({ order: res.data });
     } catch (error) {
       if (error instanceof AxiosError) {
         toast.error(
           error.response?.data?.message || error.message || "An error occurred",
         );
       }
+    } finally {
+      set({ loading: false });
     }
   },
 
   getAllorder: async () => {
     try {
       const res = await axios.get("/order");
-      set({ orders: res.data });
+      set({ order: res.data });
     } catch (error) {
       if (error instanceof AxiosError) {
         toast.error(
@@ -90,4 +99,6 @@ export const useOrderStore = create<OrderStoreType>((set) => ({
       }
     }
   },
+
+  clearOrder: () => set({ order: null }),
 }));
