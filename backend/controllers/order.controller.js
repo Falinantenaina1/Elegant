@@ -23,7 +23,7 @@ export const createOrder = async (req, res) => {
       items.push(item);
     }
 
-    const order = new Order({
+    const newOrder = await Order.create({
       customer: userId,
       items,
       totalAmount: totalAmount,
@@ -31,7 +31,7 @@ export const createOrder = async (req, res) => {
       shippingType,
     });
 
-    await order.save();
+    const order = await Order.findById(newOrder._id).populate("items.product");
 
     res.status(201).json(order);
   } catch (error) {
