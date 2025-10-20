@@ -31,7 +31,7 @@ export const Footer = () => {
               <Link
                 target="_blank"
                 className="underline hover:text-white"
-                to="https://falinantenaina.vercel.app/"
+                to="https://falinantenaina.com/"
               >
                 Falinantenaina
               </Link>
