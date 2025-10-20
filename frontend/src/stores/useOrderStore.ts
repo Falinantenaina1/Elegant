@@ -14,6 +14,7 @@ type OrderStoreType = {
       priceAtPurchase: number;
     }[];
     totalAmount: number;
+    status: string;
     shippingType: "BASIC" | "EXPRESS" | "PICKUP";
     customer: User["id"];
     createdAt: Date;
@@ -26,6 +27,7 @@ type OrderStoreType = {
       quantity: number;
       priceAtPurchase: number;
     }[];
+    status: string;
     totalAmount: number;
     shippingType: "BASIC" | "EXPRESS" | "PICKUP";
     customer: User["id"];
