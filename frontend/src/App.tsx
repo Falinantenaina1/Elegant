@@ -3,6 +3,9 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import DashboardPage from "./pages/DashboardPage";
 
 import Loading from "./components/Loading";
+import AccountDetails from "./components/users/AccountDetails";
+import Address from "./components/users/Address";
+import OrderHistory from "./components/users/OrderHistory";
 import HomePage from "./pages/HomePage";
 import LayoutPage from "./pages/LayoutPage";
 
@@ -74,11 +77,21 @@ const router = createBrowserRouter([
       },
       {
         path: "user",
-        element: (
-          <Suspense>
-            <UserPage />
-          </Suspense>
-        ),
+        element: <UserPage />,
+        children: [
+          {
+            path: "",
+            element: <AccountDetails />,
+          },
+          {
+            path: "address",
+            element: <Address />,
+          },
+          {
+            path: "orders",
+            element: <OrderHistory />,
+          },
+        ],
       },
     ],
   },
