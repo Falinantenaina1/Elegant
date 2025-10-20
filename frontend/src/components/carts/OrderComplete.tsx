@@ -60,7 +60,7 @@ const OrderComplete = () => {
             <td className="font-semibold">{order.shippingType}</td>
           </tr>
         </table>
-        <Link className={cn(buttonVariants())} to={"/user"}>
+        <Link className={cn(buttonVariants())} to={"/user/orders"}>
           Purchase history
         </Link>
       </div>
