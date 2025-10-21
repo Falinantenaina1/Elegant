@@ -6,6 +6,6 @@ const router = express.Router();
 
 router.put("/", protectRoute, updateUser);
 
-router.put("/address", updateAddress);
+router.put("/address", protectRoute, updateAddress);
 
 export default router;

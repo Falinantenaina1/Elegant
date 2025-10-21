@@ -37,15 +37,17 @@ export const updateUser = async (req, res) => {
 export const updateAddress = async (req, res) => {
   try {
     const id = req.user._id;
-    const { address } = req.body;
+    const { street, city, postalCode, country } = req.body;
 
-    if (!address) {
-      return res.status(400).json({ message: "The address is required" });
+    if (!street | !city | !postalCode | !country) {
+      return res
+        .status(400)
+        .json({ message: "There is a missing required information" });
     }
 
     const updatedUser = await User.findByIdAndUpdate(
       id,
-      { address },
+      { ...req.body },
       { new: true, runValidators: true }
     );
 
@@ -55,7 +57,7 @@ export const updateAddress = async (req, res) => {
 
     res.status(200).json(updatedUser);
   } catch (error) {
-    onsole.log("Error in Update user controller", error);
+    console.log("Error in Update user controller", error);
     res.status(500).json({ error: "Internal server error" });
   }
 };
