@@ -49,11 +49,11 @@ export const updateAddress = async (req, res) => {
       { new: true, runValidators: true }
     );
 
-    if (!updateUser) {
+    if (!updatedUser) {
       res.status(400).json({ message: "User not found" });
     }
 
-    res.status(200).json(updateUser);
+    res.status(200).json(updatedUser);
   } catch (error) {
     onsole.log("Error in Update user controller", error);
     res.status(500).json({ error: "Internal server error" });
