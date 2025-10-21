@@ -33,3 +33,29 @@ export const updateUser = async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 };
+
+export const updateAddress = async (req, res) => {
+  try {
+    const id = req.user._id;
+    const { address } = req.body;
+
+    if (!address) {
+      return res.status(400).json({ message: "The address is required" });
+    }
+
+    const updatedUser = await User.findByIdAndUpdate(
+      id,
+      { address },
+      { new: true, runValidators: true }
+    );
+
+    if (!updateUser) {
+      res.status(400).json({ message: "User not found" });
+    }
+
+    res.status(200).json(updateUser);
+  } catch (error) {
+    onsole.log("Error in Update user controller", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};

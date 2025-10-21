@@ -22,6 +22,12 @@ const userSchema = new mongoose.Schema(
       required: [true, "The password is required"],
       minlength: [6, "The password must be 6 character or max"],
     },
+    address: {
+      street: String,
+      city: String,
+      postalCode: String,
+      country: String,
+    },
   },
   { timestamps: true }
 );
