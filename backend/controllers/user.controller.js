@@ -26,6 +26,7 @@ export const updateUser = async (req, res) => {
         lastname: user.lastname,
         email: user.email,
         role: user.role,
+        address: user.address,
       })
     );
   } catch (error) {
@@ -49,7 +50,7 @@ export const updateAddress = async (req, res) => {
       id,
       { address: { ...req.body } },
       { new: true, runValidators: true }
-    );
+    ).select("-password");
 
     if (!updatedUser) {
       res.status(400).json({ message: "User not found" });
