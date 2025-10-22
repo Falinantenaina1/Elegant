@@ -47,7 +47,7 @@ export const updateAddress = async (req, res) => {
 
     const updatedUser = await User.findByIdAndUpdate(
       id,
-      { ...req.body },
+      { address: { ...req.body } },
       { new: true, runValidators: true }
     );
 
