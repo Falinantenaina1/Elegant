@@ -18,6 +18,7 @@ type OrderStoreType = {
     shippingType: "BASIC" | "EXPRESS" | "PICKUP";
     customer: User["id"];
     createdAt: Date;
+    shippingAdress: User["address"];
   } | null;
 
   allOrders: {
@@ -40,6 +41,7 @@ type OrderStoreType = {
     carts: productWithQuanity[],
     totalAmount: number,
     shippingType: string,
+    shippingAdress: User["address"],
   ) => void;
 
   getAllorder: () => void;
@@ -55,13 +57,15 @@ export const useOrderStore = create<OrderStoreType>((set) => ({
   isOrderCreated: false,
   loading: false,
 
-  createOrder: async (carts, totalAmount, shippingType) => {
+  createOrder: async (carts, totalAmount, shippingType, shippingAdress) => {
     set({ loading: true, order: null });
+    if (!shippingAdress) return toast.error("The shipping address is required");
     try {
       const res = await axios.post("/order", {
         carts,
         totalAmount,
         shippingType,
+        shippingAdress,
       });
 
       set({ order: res.data });

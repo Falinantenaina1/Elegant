@@ -4,6 +4,12 @@ export type User = {
   lastname: string;
   email: string;
   role: "admin" | "customer";
+  address: {
+    street: string;
+    city: string;
+    postalCode: string;
+    country: string;
+  };
 };
 
 export type Review = {

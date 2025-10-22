@@ -1,20 +1,13 @@
 import { useCartStore } from "@/stores/useCartStore";
 import { useOrderStore } from "@/stores/useOrderStore";
 import { useUserStore } from "@/stores/useUserStore";
+import type { User } from "@/types";
 import { useEffect } from "react";
 import { MobileCart } from "./carts/MobileCart";
 import { FormInput } from "./FormInput";
 import { Button } from "./ui/button";
-import { Label } from "./ui/label";
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "./ui/select";
 import { Separator } from "./ui/separator";
+import Address from "./users/Address";
 
 const CheckOut = ({
   setTabs,
@@ -27,7 +20,12 @@ const CheckOut = ({
     useCartStore();
 
   const handleOrder = async () => {
-    createOrder(carts, total(), selectedShippingId.toUpperCase());
+    createOrder(
+      carts,
+      total(),
+      selectedShippingId.toUpperCase(),
+      user?.address as User["address"],
+    );
     clearCart();
     setTabs("Order complete");
   };
@@ -58,6 +56,7 @@ const CheckOut = ({
                       required
                       defaultValue={user?.firstname}
                       placeholder="First name"
+                      disabled={true}
                     />
                     <FormInput
                       name="lastname"
@@ -65,74 +64,22 @@ const CheckOut = ({
                       defaultValue={user?.lastname}
                       required
                       placeholder="Last name"
+                      disabled={true}
                     />
                   </div>
-                  <FormInput
-                    name="phone"
-                    type="phone"
-                    label="PHONE NUMBER"
-                    defaultValue=""
-                    placeholder="Phone number"
-                  />
                   <FormInput
                     name="email"
                     type="email"
                     label="EMAIL ADDRESS"
                     defaultValue={user?.email}
                     placeholder="Your Email"
+                    disabled={true}
                   />
                 </div>
               </form>
             </div>
             {/* Shipping Address */}
-            <div className="rounded-sm px-4 py-6 ring-1 ring-gray-400 lg:px-6 lg:py-10">
-              <h3 className="font-poppins font-semibold lg:text-xl lg:font-medium">
-                Shipping Address
-              </h3>
-              <form action="" className="mt-6">
-                <div className="space-y-6">
-                  <FormInput
-                    name="street"
-                    label="STREET ADDRESS*"
-                    placeholder="Strett address"
-                    required
-                  />
-                  <div>
-                    <Label htmlFor="country">COUNTRY*</Label>
-                    <Select>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Country" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectGroup>
-                          <SelectItem value="United State">
-                            United State
-                          </SelectItem>
-                          <SelectItem value="France">France</SelectItem>
-                          <SelectItem value="Germany">Germany</SelectItem>
-                          <SelectItem value="Madagascar">Madagascar</SelectItem>
-                          <SelectItem value="Italy">Italy</SelectItem>
-                        </SelectGroup>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  <FormInput
-                    name="city"
-                    label="TOWN/CITY*"
-                    placeholder="Town / City"
-                    required
-                  />
-                  <div className="grid grid-cols-2 gap-x-6">
-                    <FormInput name="state" label="STATE" placeholder="State" />
-                    <FormInput
-                      name="zipCode"
-                      label="ZIP CODE"
-                      placeholder="Zip code"
-                    />
-                  </div>
-                </div>
-              </form>
-            </div>
+            <Address />
           </div>
           {/* Order summary */}
           <div className="lg:col-span-4">
@@ -158,14 +105,17 @@ const CheckOut = ({
                 </div>
               </div>
             </div>
+            <Button
+              className="mx-auto mt-6 w-full cursor-pointer"
+              onClick={handleOrder}
+              disabled={
+                !user?.address || Object.keys(user.address).length === 0
+              }
+            >
+              Place Order
+            </Button>
           </div>
         </div>
-        <Button
-          className="mx-auto mt-6 w-full cursor-pointer lg:w-1/2"
-          onClick={handleOrder}
-        >
-          Place Order
-        </Button>
       </div>
     </>
   );

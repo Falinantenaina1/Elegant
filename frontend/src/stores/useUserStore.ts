@@ -22,12 +22,17 @@ type UserStore = {
   logout: () => void;
   checkAuth: () => void;
   updateUser: (
-    userId: string | undefined,
     firstname: string | undefined,
     lastname: string | undefined,
     oldPassword: string,
     newPassword: string,
     newConfirmation: string,
+  ) => void;
+  updateAddress: (
+    street: string,
+    city: string,
+    postalCode: string,
+    country: string,
   ) => void;
 };
 
@@ -105,7 +110,6 @@ export const useUserStore = create<UserStore>((set) => ({
   },
 
   updateUser: async (
-    userId,
     firstname,
     lastname,
     oldPassword,
@@ -116,7 +120,7 @@ export const useUserStore = create<UserStore>((set) => ({
     try {
       if (newPassword !== newConfirmation)
         return toast.error("The new Password doesn't match");
-      const res = await axios.put(`/user/${userId}`, {
+      const res = await axios.put(`/user`, {
         firstname,
         lastname,
         oldPassword,
@@ -132,6 +136,28 @@ export const useUserStore = create<UserStore>((set) => ({
           id: "Edit error",
         });
       }
+      set({ loading: false });
+    }
+  },
+
+  updateAddress: async (street, city, postalCode, country) => {
+    set({ loading: true });
+    try {
+      const res = await axios.put("/user/address", {
+        street,
+        city,
+        postalCode,
+        country,
+      });
+      set({ user: res.data });
+      toast.success("Address updated");
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        toast.error(error.response?.data.message || "Internal server error", {
+          id: "Edit error",
+        });
+      }
+    } finally {
       set({ loading: false });
     }
   },

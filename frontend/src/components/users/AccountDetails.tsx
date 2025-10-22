@@ -16,14 +16,7 @@ const AccountDetails = () => {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    updateUser(
-      user?.id,
-      firstname,
-      lastname,
-      oldPassword,
-      newPassword,
-      newConfirmation,
-    );
+    updateUser(firstname, lastname, oldPassword, newPassword, newConfirmation);
   };
   return (
     <Section>

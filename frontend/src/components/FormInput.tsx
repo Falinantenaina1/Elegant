@@ -23,6 +23,7 @@ export const FormInput = (props: FormInput) => {
         {props.label}
       </Label>
       <Input
+        disabled={props.disabled}
         type={props.type || "text"}
         name={props.name}
         id={props.name}
