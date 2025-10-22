@@ -25,6 +25,7 @@ export const signup = async (req, res) => {
       lastname: user.lastname,
       email: user.email,
       role: user.role,
+      address: user.address,
     });
   } catch (error) {
     console.log("Error in signup controller", error.message);
@@ -51,6 +52,7 @@ export const login = async (req, res) => {
         lastname: user.lastname,
         role: user.role,
         email: user.email,
+        address: user.address,
       });
     }
 
@@ -75,6 +77,7 @@ export const getProfil = async (req, res) => {
       lastname: user.lastname,
       email: user.email,
       role: user.role,
+      address: user.address,
     });
   } catch (error) {
     console.log("Error in getProfil controller", error.message);
