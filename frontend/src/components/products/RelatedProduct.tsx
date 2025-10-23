@@ -1,7 +1,7 @@
 import { useProductStore } from "@/stores/useProductStore";
 import { useMemo } from "react";
+import { Section } from "../Section";
 import { ProductCard } from "./ProductCard";
-import { Section } from "./Section";
 
 type RelatedProps = {
   category: string;

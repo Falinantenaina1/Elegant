@@ -1,5 +1,5 @@
-import ProductFilter from "@/components/ProductFilter";
-import ProductFilteredList from "@/components/ProductFilteredList";
+import ProductFilter from "@/components/products/ProductFilter";
+import ProductFilteredList from "@/components/products/ProductFilteredList";
 import { Section } from "@/components/Section";
 import { priceRanges } from "@/constants";
 import type { PriceRange } from "@/types";

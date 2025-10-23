@@ -1,4 +1,4 @@
-import { ProductCarousel } from "@/components/ProductCarousel";
+import { ProductCarousel } from "@/components/products/ProductCarousel";
 import { useProductStore } from "@/stores/useProductStore";
 import { Section } from "./Section";
 

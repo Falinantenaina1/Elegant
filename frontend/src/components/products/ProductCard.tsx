@@ -1,7 +1,7 @@
+import { Button } from "@/components/ui/button";
 import { useCartStore } from "@/stores/useCartStore";
 import type { Product } from "@/types";
 import { useNavigate } from "react-router-dom";
-import { Button } from "./ui/button";
 
 export const ProductCard = ({
   product,

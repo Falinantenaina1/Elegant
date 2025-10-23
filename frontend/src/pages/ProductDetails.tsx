@@ -8,7 +8,9 @@ import React, { useMemo } from "react";
 import { useParams } from "react-router-dom";
 import NotFound from "./NotFound";
 
-const RelatedProduct = React.lazy(() => import("../components/RelatedProduct"));
+const RelatedProduct = React.lazy(
+  () => import("../components/products/RelatedProduct"),
+);
 
 const ProductDetails = () => {
   const { id } = useParams();

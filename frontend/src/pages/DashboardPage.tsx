@@ -5,9 +5,11 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const ProductsDashboard = React.lazy(
-  () => import("../components/ProductsDashboard"),
+  () => import("../components/admin/ProductsDashboard"),
 );
-const CreateProduct = React.lazy(() => import("../components/CreateProduct"));
+const CreateProduct = React.lazy(
+  () => import("../components/admin/CreateProduct"),
+);
 
 const DashboardPage = () => {
   const user = useUserStore((s) => s.user);

@@ -2,11 +2,11 @@ import { cn } from "@/lib/utils";
 import { useProductStore } from "@/stores/useProductStore";
 import { LoaderCircle } from "lucide-react";
 import { type FormEvent } from "react";
-import { Section } from "./Section";
-import { Button } from "./ui/button";
-import { Input } from "./ui/input";
-import { Label } from "./ui/label";
-import { Textarea } from "./ui/textarea";
+import { Section } from "../Section";
+import { Button } from "../ui/button";
+import { Input } from "../ui/input";
+import { Label } from "../ui/label";
+import { Textarea } from "../ui/textarea";
 
 const categories = [
   { name: "Select a category", value: "" },

@@ -1,5 +1,5 @@
 import { useProductStore } from "@/stores/useProductStore";
-import { ProductCard } from "./ProductCard";
+import { ProductCard } from "./products/ProductCard";
 import { Section } from "./Section";
 
 export const BestSeller = () => {
