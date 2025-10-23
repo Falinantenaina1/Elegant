@@ -1,6 +1,6 @@
 import { useUserStore } from "@/stores/useUserStore";
 import { LoaderCircle } from "lucide-react";
-import { useState, type FormEvent } from "react";
+import { type FormEvent } from "react";
 import { FormInput } from "../FormInput";
 import { Section } from "../Section";
 import { Button } from "../ui/button";
@@ -8,15 +8,23 @@ import { Button } from "../ui/button";
 const AccountDetails = () => {
   const { user, updateUser, loading } = useUserStore();
 
-  const [firstname, setFirstname] = useState(user?.firstname);
-  const [lastname, setLastname] = useState(user?.lastname);
-  const [oldPassword, setOldPassword] = useState("");
-  const [newPassword, setNewPassword] = useState("");
-  const [newConfirmation, setNewConfirmation] = useState("");
-
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    updateUser(firstname, lastname, oldPassword, newPassword, newConfirmation);
+    const form = new FormData(e.currentTarget);
+
+    const firstname = form.get("firstname") as string;
+    const lastname = form.get("lastname") as string;
+    const oldPassword = form.get("oldPassword") as string;
+    const newPassword = form.get("newPassword") as string;
+    const newConfirmation = form.get("newConfirmation") as string;
+
+    updateUser({
+      firstname,
+      lastname,
+      oldPassword,
+      newPassword,
+      newConfirmation,
+    });
   };
   return (
     <Section>
@@ -27,23 +35,19 @@ const AccountDetails = () => {
             <FormInput
               name="firstname"
               label="FIRST NAME *"
-              value={firstname}
-              onChange={(e) => setFirstname(e.target.value)}
+              defaultValue={user?.firstname || ""}
             />
             <FormInput
               name="lastname"
               label="LAST NAME *"
-              value={lastname}
-              onChange={(e) => setLastname(e.target.value)}
+              defaultValue={user?.lastname || ""}
             />
             <FormInput
               name="EMAIL"
               type="email"
               label="EMAIL *"
-              inputStyle="cursor-not-allowed focus:ring-0"
               disabled
-              value={user?.email}
-              onChange={() => {}}
+              defaultValue={user?.email || ""}
             />
           </div>
           <h3 className="my-4 text-xl font-semibold">Password</h3>
@@ -54,21 +58,18 @@ const AccountDetails = () => {
                 type="password"
                 label="OLD PASSWORD"
                 placeholder="Old password"
-                onChange={(e) => setOldPassword(e.target.value)}
               />
               <FormInput
                 name="newPassword"
                 type="password"
                 label="NEW PASSWORD"
                 placeholder="New password"
-                onChange={(e) => setNewPassword(e.target.value)}
               />
               <FormInput
                 name="newConfirmation"
                 type="password"
                 label="REPEAT NEW PASSWORD"
                 placeholder="Repeat new password"
-                onChange={(e) => setNewConfirmation(e.target.value)}
               />
             </div>
           </div>

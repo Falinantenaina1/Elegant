@@ -19,7 +19,7 @@ const UserPage = () => {
   return (
     <Section className="section">
       <h2 className="h2">My Account</h2>
-      <div className="flex gap-x-4 max-md:flex-col">
+      <div className="flex gap-4 max-md:flex-col">
         {/* User Card */}
         <div className="w-full bg-[#F3F5F7] p-4 md:w-[16rem]">
           <div className="flex flex-col items-center space-y-2">

@@ -1,40 +1,8 @@
-import type { User } from "@/types";
+import type { UserStore } from "@/types";
 import { AxiosError } from "axios";
 import toast from "react-hot-toast";
 import { create } from "zustand";
 import axios from "../lib/axios";
-
-type UserStore = {
-  user: User | null;
-  loading: boolean;
-  isAuth: boolean;
-  isCheckingAuth: boolean;
-  isShowingAuth: boolean;
-  setShowAuth: (bool: boolean) => void;
-  signup: (signupData: {
-    firstname: string;
-    lastname: string;
-    email: string;
-    password: string;
-    passwordVerification: string;
-  }) => void;
-  login: (loginData: { email: string; password: string }) => void;
-  logout: () => void;
-  checkAuth: () => void;
-  updateUser: (
-    firstname: string | undefined,
-    lastname: string | undefined,
-    oldPassword: string,
-    newPassword: string,
-    newConfirmation: string,
-  ) => void;
-  updateAddress: (
-    street: string,
-    city: string,
-    postalCode: string,
-    country: string,
-  ) => void;
-};
 
 export const useUserStore = create<UserStore>((set) => ({
   user: null,
@@ -109,23 +77,12 @@ export const useUserStore = create<UserStore>((set) => ({
     }
   },
 
-  updateUser: async (
-    firstname,
-    lastname,
-    oldPassword,
-    newPassword,
-    newConfirmation,
-  ) => {
+  updateUser: async (updateUserData) => {
     set({ loading: true });
     try {
-      if (newPassword !== newConfirmation)
+      if (updateUserData.newPassword !== updateUserData.newConfirmation)
         return toast.error("The new Password doesn't match");
-      const res = await axios.put(`/user`, {
-        firstname,
-        lastname,
-        oldPassword,
-        newPassword,
-      });
+      const res = await axios.put(`/user`, updateUserData);
 
       set({ user: res.data });
       set({ loading: false });
@@ -140,15 +97,11 @@ export const useUserStore = create<UserStore>((set) => ({
     }
   },
 
-  updateAddress: async (street, city, postalCode, country) => {
+  updateAddress: async (updateAddressData) => {
     set({ loading: true });
+    console.log(updateAddressData);
     try {
-      const res = await axios.put("/user/address", {
-        street,
-        city,
-        postalCode,
-        country,
-      });
+      const res = await axios.put("/user/address", updateAddressData);
       set({ user: res.data });
       toast.success("Address updated");
     } catch (error) {

@@ -13,10 +13,10 @@ const Address = () => {
     const form = new FormData(e.currentTarget);
     const street = form.get("street") as string;
     const city = form.get("city") as string;
-    const postalCode = form.get("postalCode") as string;
+    const postalCode = Number(form.get("postalCode"));
     const country = form.get("country") as string;
 
-    updateAddress(street, city, postalCode, country);
+    updateAddress({ street, city, postalCode, country });
   };
 
   return (
@@ -32,21 +32,21 @@ const Address = () => {
               label="STREET ADDRESS*"
               placeholder="Strett address"
               required
-              defaultValue={user?.address?.street || ""}
+              defaultValue={user?.address?.street}
             />
             <FormInput
               name="country"
               label="COUNTRY*"
               placeholder="Country"
               required
-              defaultValue={user?.address?.country || ""}
+              defaultValue={user?.address?.country}
             />
             <FormInput
               name="city"
               label="TOWN/CITY*"
               placeholder="Town / City"
               required
-              defaultValue={user?.address?.city || ""}
+              defaultValue={user?.address?.city}
             />
             <div className="grid grid-cols-2 gap-x-6">
               <FormInput name="state" label="STATE" placeholder="State" />
@@ -54,7 +54,7 @@ const Address = () => {
                 name="postalCode"
                 label="ZIP CODE"
                 placeholder="Zip code"
-                defaultValue={user?.address?.postalCode || ""}
+                defaultValue={String(user?.address?.postalCode)}
               />
             </div>
             <Button type="submit" size={"lg"} disabled={loading}>
