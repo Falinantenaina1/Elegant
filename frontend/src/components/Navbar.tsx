@@ -4,19 +4,16 @@ import { useUserStore } from "@/stores/useUserStore";
 import * as SheetPrimitive from "@radix-ui/react-dialog";
 import {
   Facebook,
-  HeartIcon,
   Instagram,
   LockIcon,
   LogInIcon,
   LogOutIcon,
   MenuIcon,
-  Search,
   Youtube,
 } from "lucide-react";
 import { Link, NavLink } from "react-router-dom";
 import { Cart } from "./Cart";
 import { Button, buttonVariants } from "./ui/button";
-import { Input } from "./ui/input";
 import { Separator } from "./ui/separator";
 import {
   Sheet,
@@ -47,7 +44,6 @@ export const Navbar = () => {
           ))}
         </div>
         <div className="flex grow basis-0 items-center justify-end gap-x-4">
-          <Search className="size-6" />
           <Link to={"/cart"}>
             <Cart />
           </Link>
@@ -96,14 +92,6 @@ export const Navbar = () => {
             <SheetDescription className="sr-only">Navbar menu</SheetDescription>
             <div className="flex h-full flex-col justify-between px-4 pb-4">
               <div>
-                <div className="relative">
-                  <Input
-                    type="search"
-                    className="pl-10 text-black/70"
-                    placeholder="search"
-                  />
-                  <Search className="absolute top-1/2 left-2 -translate-y-1/2 text-black/20" />
-                </div>
                 <div className="flex flex-col">
                   {menus.map((menu) => (
                     <div key={menu.name} className="">
@@ -121,16 +109,6 @@ export const Navbar = () => {
                     <Link to="/cart" className="flex justify-between py-2">
                       <span>Cart</span>
                       <Cart />
-                    </Link>
-                    <Separator />
-                    <Link to="/" className="flex justify-between py-2">
-                      <span>Whislist</span>
-                      <div className="flex items-center gap-x-1">
-                        <HeartIcon className="text-black/60" />
-                        <div className="flex size-4 items-center justify-center rounded-full bg-black text-xs text-white">
-                          2
-                        </div>
-                      </div>
                     </Link>
                     <Separator />
                   </div>
