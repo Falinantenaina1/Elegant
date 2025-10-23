@@ -1,34 +1,7 @@
-import type { Product } from "@/types";
+import type { CartStoreType } from "@/types";
 import toast from "react-hot-toast";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-
-export type productWithQuanity = Product & { quantity: number };
-
-type ShippingOption = {
-  id: string;
-  label: string;
-  costFixed?: number;
-  costPercent?: number;
-};
-
-export type CartStoreType = {
-  carts: productWithQuanity[];
-  shippingOptions: ShippingOption[];
-  selectedShippingId: string;
-
-  addItem: (product: Product) => void;
-  removeItem: (product: Product) => void;
-  increase: (id: Product["_id"]) => void;
-  decrease: (product: Product["_id"]) => void;
-  clearCart: () => void;
-  selectShipping: (shippingId: ShippingOption["id"]) => void;
-
-  subTotal: () => number;
-  countItems: () => number;
-  shippingCost: () => number;
-  total: () => number;
-};
 
 export const useCartStore = create<CartStoreType>()(
   persist(

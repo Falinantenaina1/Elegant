@@ -1,55 +1,8 @@
-import type { Product, User } from "@/types";
+import type { OrderStoreType } from "@/types";
 import { AxiosError } from "axios";
 import toast from "react-hot-toast";
 import { create } from "zustand";
 import axios from "../lib/axios";
-import type { productWithQuanity } from "./useCartStore";
-
-type OrderStoreType = {
-  order: {
-    _id: string;
-    items: {
-      product: Product;
-      quantity: number;
-      priceAtPurchase: number;
-    }[];
-    totalAmount: number;
-    status: string;
-    shippingType: "BASIC" | "EXPRESS" | "PICKUP";
-    customer: User["id"];
-    createdAt: Date;
-    shippingAdress: User["address"];
-  } | null;
-
-  allOrders: {
-    _id: string;
-    items: {
-      product: Product;
-      quantity: number;
-      priceAtPurchase: number;
-    }[];
-    status: string;
-    totalAmount: number;
-    shippingType: "BASIC" | "EXPRESS" | "PICKUP";
-    customer: User["id"];
-    createdAt: Date;
-  }[];
-
-  loading: boolean;
-
-  createOrder: (
-    carts: productWithQuanity[],
-    totalAmount: number,
-    shippingType: string,
-    shippingAdress: User["address"],
-  ) => void;
-
-  getAllorder: () => void;
-
-  getUserOrder: () => void;
-
-  clearOrder: () => void;
-};
 
 export const useOrderStore = create<OrderStoreType>((set) => ({
   order: null,
@@ -57,16 +10,12 @@ export const useOrderStore = create<OrderStoreType>((set) => ({
   isOrderCreated: false,
   loading: false,
 
-  createOrder: async (carts, totalAmount, shippingType, shippingAdress) => {
+  createOrder: async (createOrderData) => {
     set({ loading: true, order: null });
-    if (!shippingAdress) return toast.error("The shipping address is required");
+    if (!createOrderData.shippingAdress)
+      return toast.error("The shipping address is required");
     try {
-      const res = await axios.post("/order", {
-        carts,
-        totalAmount,
-        shippingType,
-        shippingAdress,
-      });
+      const res = await axios.post("/order", createOrderData);
 
       set({ order: res.data });
     } catch (error) {

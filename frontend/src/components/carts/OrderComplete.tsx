@@ -33,32 +33,34 @@ const OrderComplete = () => {
           ))}
         </div>
         <table className="mx-auto text-left">
-          <tr>
-            <td className="px-4 py-1 font-semibold text-gray-700">
-              Order code:
-            </td>
-            <td className="font-semibold">#{order._id.slice(0, 5)}</td>
-          </tr>
-          <tr>
-            <td className="px-4 py-1 font-semibold text-gray-700">Date:</td>
-            <td className="font-semibold">
-              {date.toLocaleDateString("en-US", {
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-              })}
-            </td>
-          </tr>
-          <tr>
-            <td className="px-4 py-1 font-semibold text-gray-700">Total:</td>
-            <td className="font-semibold">${order.totalAmount.toFixed(2)}</td>
-          </tr>
-          <tr>
-            <td className="px-4 py-1 font-semibold text-gray-700">
-              Shipping Method:
-            </td>
-            <td className="font-semibold">{order.shippingType}</td>
-          </tr>
+          <tbody>
+            <tr>
+              <td className="px-4 py-1 font-semibold text-gray-700">
+                Order code:
+              </td>
+              <td className="font-semibold">#{order._id.slice(0, 5)}</td>
+            </tr>
+            <tr>
+              <td className="px-4 py-1 font-semibold text-gray-700">Date:</td>
+              <td className="font-semibold">
+                {date.toLocaleDateString("en-US", {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                })}
+              </td>
+            </tr>
+            <tr>
+              <td className="px-4 py-1 font-semibold text-gray-700">Total:</td>
+              <td className="font-semibold">${order.totalAmount.toFixed(2)}</td>
+            </tr>
+            <tr>
+              <td className="px-4 py-1 font-semibold text-gray-700">
+                Shipping Method:
+              </td>
+              <td className="font-semibold">{order.shippingType}</td>
+            </tr>
+          </tbody>
         </table>
         <Link className={cn(buttonVariants())} to={"/user/orders"}>
           Purchase history

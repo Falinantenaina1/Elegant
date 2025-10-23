@@ -1,7 +1,7 @@
 import { useCartStore } from "@/stores/useCartStore";
 import { useOrderStore } from "@/stores/useOrderStore";
 import { useUserStore } from "@/stores/useUserStore";
-import type { User } from "@/types";
+import type { UserAddress } from "@/types";
 import { useEffect } from "react";
 import { MobileCart } from "./carts/MobileCart";
 import { FormInput } from "./FormInput";
@@ -20,12 +20,12 @@ const CheckOut = ({
     useCartStore();
 
   const handleOrder = async () => {
-    createOrder(
+    createOrder({
       carts,
-      total(),
-      selectedShippingId.toUpperCase(),
-      user?.address as User["address"],
-    );
+      totalAmount: total(),
+      shippingType: selectedShippingId.toUpperCase(),
+      shippingAdress: user?.address as UserAddress,
+    });
     clearCart();
     setTabs("Order complete");
   };

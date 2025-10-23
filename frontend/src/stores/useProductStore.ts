@@ -1,18 +1,8 @@
-import type { Product } from "@/types";
+import type { ProductStore } from "@/types";
 import { AxiosError } from "axios";
 import toast from "react-hot-toast";
 import { create } from "zustand";
 import axios from "../lib/axios";
-
-type ProductStore = {
-  products: Product[];
-  loading: boolean;
-  isGettingProduct: boolean;
-  getAllProduct: () => void;
-  createProduct: (formData: FormData) => void;
-  deleteProduct: (id: string) => void;
-  toggleFeatured: (id: string) => void;
-};
 
 export const useProductStore = create<ProductStore>((set) => ({
   products: [],
