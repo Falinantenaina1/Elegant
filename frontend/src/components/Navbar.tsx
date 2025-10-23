@@ -115,13 +115,15 @@ export const Navbar = () => {
                 </div>
                 {user ? (
                   <div className="space-y-1">
-                    <Link
-                      to={"/dashboard"}
-                      className={cn(buttonVariants(), "w-full")}
-                    >
-                      <LockIcon />
-                      <span>Dashboard</span>
-                    </Link>
+                    {user.role === "admin" && (
+                      <Link
+                        to={"/dashboard"}
+                        className={cn(buttonVariants(), "w-full")}
+                      >
+                        <LockIcon />
+                        <span>Dashboard</span>
+                      </Link>
+                    )}
                     <Button onClick={logout} className="w-full">
                       Log Out
                     </Button>
@@ -152,7 +154,7 @@ export const Navbar = () => {
           </SheetContent>
         </Sheet>
         <div className="flex items-center gap-x-2">
-          {user && <Link to={"/"}>{user.lastname}</Link>}
+          {user && <Link to={"/user"}>{user.lastname}</Link>}
           <Link to="/cart">
             <Cart />
           </Link>
