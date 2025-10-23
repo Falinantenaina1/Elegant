@@ -33,7 +33,7 @@ export const Auth = () => {
   return (
     <div
       onClick={() => setShowAuth(false)}
-      className="fixed inset-0 z-100 flex h-screen w-full items-center justify-center bg-white/70"
+      className="fixed inset-0 z-100 flex h-screen w-full items-center justify-center bg-white/70 px-6"
     >
       <div className="flex h-screen max-w-6xl items-center justify-center">
         <div
@@ -68,7 +68,10 @@ export const Auth = () => {
                 {auth == "login" ? "Sign Up" : "Sign In"}
               </span>
             </p>
-            <form className="space-y-2 xl:space-y-4" onSubmit={handleSubmit}>
+            <form
+              className="space-y-4 max-md:pb-32 xl:space-y-4"
+              onSubmit={handleSubmit}
+            >
               {auth == "signup" && (
                 <>
                   <FormInput
